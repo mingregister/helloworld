@@ -1,0 +1,36 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+  <title> {% block title %} {% endblock %}</title>
+  {% include '_head_css_js.html' %}
+  <style>
+    .header {
+      width: 98%;
+      background: #333;
+      color: #fff;
+      padding: 1%;
+    }
+    .footer {
+      width: 98%;
+      background: rgb(87, 86, 86);
+      color: #fff;
+      padding: 1%;
+    }
+    ul, li {
+      list-style: none
+    }
+    .content {
+      width: 100%;
+      min-height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  {% include '_header.html' %}
+  {% block content %}
+
+  {% endblock %}
+  {% include '_footer.html' %}
+</body>
+</html>

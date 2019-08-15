@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+blog
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <form method="get">
+    <ul>
+    <li><a href="/blog/post">Go Post Your Blog</a></li>
+    </ul>
+  {% for blog in blogs %}
+    {{ blog.title }} <br>
+    {{ blog.body }}
+  <br>----------------------------------<br>
+  {% endfor %}
+  </form>
+</div>
+{% endblock %}
