@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 from django.views.generic import View
@@ -9,6 +9,8 @@ from django.views.generic import ListView
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Blog
 from .forms import BlogForm
@@ -28,6 +30,15 @@ class BlogList(ListView):
     queryset = Blog.objects.all()
     context_object_name = 'blogs'
     template_name = 'blog/index.html'
+
+    # def get_context_data(self, **kwargs):
+    #     kwargs['board'] = self.board
+    #     return super().get_context_data(**kwargs)
+
+    # def get_queryset(self):
+    #     self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+    #     queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+    #     return queryset
 
 
 decorators = [login_required]   
