@@ -25,11 +25,17 @@ from .forms import BlogForm
 #         return render(request, 'blog/index.html', context)
 
 # # it is equal to IndexView
+
+def redirect_blog(request):
+    return redirect('/blog/1')
+
+
 class BlogList(ListView):
     model = Blog
     queryset = Blog.objects.all()
     context_object_name = 'blogs'
     template_name = 'blog/index.html'
+    paginate_by = 5
 
     # def get_context_data(self, **kwargs):
     #     kwargs['board'] = self.board
