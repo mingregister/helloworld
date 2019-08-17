@@ -12,10 +12,6 @@ from .forms import SignUpForm
 # Create your views here.
 
 
-# def signup(request):
-#     form = UserCreationForm()
-#     return render(request, 'accounts/signup.html', {'form': form})
-
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

@@ -11,6 +11,9 @@ blog
     <li><a href="/blog/post">Go Post Your Blog</a></li>
     </ul>
   {% for blog in blogs %}
+    <!-- {% if messages %} -->
+    <!-- {{ messages }} -->
+    <!-- {% endif %} -->
     {{ blog.title }} <br>
     {{ blog.body }}
   <br>----------------------------------<br>

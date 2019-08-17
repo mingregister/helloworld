@@ -15,5 +15,5 @@ class Blog(models.Model):
 
     class Meta:
         db_table = 'blog'
-        ordering = ['modified_time']
-        get_latest_by =  ['modified_time', 'create_time']
+        ordering = ['-modified_time']
+        get_latest_by =  ['-modified_time', '-create_time']

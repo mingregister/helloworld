@@ -12,6 +12,8 @@ from django.utils.decorators import method_decorator
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.contrib.messages.views import SuccessMessageMixin
+
 from .models import Blog
 from .forms import BlogForm
 
@@ -35,7 +37,7 @@ class BlogList(ListView):
     queryset = Blog.objects.all()
     context_object_name = 'blogs'
     template_name = 'blog/index.html'
-    paginate_by = 5
+    # paginate_by = 5
 
     # def get_context_data(self, **kwargs):
     #     kwargs['board'] = self.board
@@ -49,7 +51,9 @@ class BlogList(ListView):
 
 decorators = [login_required]   
 @method_decorator(decorators, name='dispatch')
-class PostView(View):
+class PostView(SuccessMessageMixin, View):
+    success_message = 'Congratulations!!!'           # it does not work now!!!
+    # success_url = reverse_lazy('blog:author-list') # FormMixin
 
     def get(self, request):
         form = BlogForm()

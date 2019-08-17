@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'helloworld.middleware.DemoMiddleware',
 ]
 
@@ -88,14 +89,26 @@ DATABASES = {
         'PORT': os.environ.get('DJANGO_MYSQL_PORT'),
         'USER': os.environ.get('DJANGO_MYSQL_USER'),
         'PASSWORD': os.environ.get('DJANGO_MYSQL_PASS'),
+    },
+    'users': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
+# # database 'users' can not be migrate.!!! 
+# # i do not know why.
+# DATABASE_ROUTERS = ['helloworld.database_router.MyDatabaseAppsRouter']
+# DATABASE_APPS_MAPPING = {
+#     # example:
+#     #'app_name':'database_name',
+#     'demo': 'default',
+#     'blog': 'default',
+#     'accounts': 'default',
+#     'apple': 'default',
+#     'compute': 'default',
+#     'phone': 'users',
+#     'zabc': 'users',
 # }
 
 

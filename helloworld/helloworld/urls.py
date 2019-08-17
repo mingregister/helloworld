@@ -20,11 +20,9 @@ from django.contrib.auth import views as auth_views
 from . import views
 from accounts import views as accounts_views
 
-urlpatterns = [
-    # path('', views.index, name='helloworld-index'),
-    path('', views.index, name='home'),
-    path('admin/', admin.site.urls),
 
+urlpatterns = [
+    # accounts url
     path('signup/', accounts_views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -76,7 +74,12 @@ urlpatterns = [
     #     name='password_change'),
     # url(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
     #     name='password_change_done'),
+]
 
+
+urlpatterns += [
+    path('', views.index, name='home'),
+    path('admin/', admin.site.urls),
     path('demo/', include('demo.urls')),
     path('blog/', include('blog.urls')),
 ]
