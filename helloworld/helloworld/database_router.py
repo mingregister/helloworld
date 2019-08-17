@@ -57,7 +57,7 @@ class MyDatabaseAppsRouter(object):
             return DATABASE_MAPPING.get(app_label) == db
         elif app_label in DATABASE_MAPPING:
             return False 
-        # raise CustomError('db {} router allow_migrate failed'.format(db))
+        # raise CustomError('db {} router allow_migrate function return False'.format(db))
         return None
 
     # # 2.2.2官方文档中没有写函数的示例。
