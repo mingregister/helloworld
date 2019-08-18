@@ -34,19 +34,21 @@ def redirect_blog(request):
 
 class BlogList(ListView):
     model = Blog
-    queryset = Blog.objects.all()
+    # queryset = Blog.objects.all()
     context_object_name = 'blogs'
     template_name = 'blog/index.html'
-    # paginate_by = 5
+    paginate_by = 5
+    # page_kwarg = 'page'
 
     # def get_context_data(self, **kwargs):
     #     kwargs['board'] = self.board
     #     return super().get_context_data(**kwargs)
 
-    # def get_queryset(self):
-    #     self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
-    #     queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
-    #     return queryset
+    def get_queryset(self):
+        # self.blog = get_object_or_404(Blog, pk=self.kwargs.get('pk'))
+        # queryset = self.blog.objects.order_by('-modified_time').annotate(replies=Count('posts') - 1)
+        queryset = Blog.objects.order_by('-modified_time')
+        return queryset
 
 
 decorators = [login_required]   
