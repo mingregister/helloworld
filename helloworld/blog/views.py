@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, reverse,  get_object_or_404
 from django.http import HttpResponse
 
 from django.views.generic import View
@@ -65,7 +65,8 @@ class PostView(SuccessMessageMixin, View):
         form = BlogForm(request.POST)
         if form.is_valid():
             publisher = form.save()
-            return redirect("/blog")
+            return redirect(reverse('blog-index',kwargs={}))
+            # return redirect("/blog")
             # return redirect("/publisher/{pk}/detail".format(pk=publisher.pk))
         else:
             return HttpResponse('form is illeagle')
