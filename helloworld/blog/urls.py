@@ -20,8 +20,7 @@ from . import views
 
 urlpatterns = [
     # path('', views.IndexView.as_view(), name='blog-index'), # it can not be write as '/'
-    # path('', views.redirect_blog),
-    # path('<int:pn>', views.BlogList.as_view(), name='blog-index'), # it can not be write as '/'
+    # path('<int:page>', views.BlogList.as_view(), name='blog-index'), # it can not be write as '/'
     path('', views.BlogList.as_view(), name='blog-index'), # it can not be write as '/'
     path('post/', views.PostView.as_view(), name='blog-post'), 
 ]
