@@ -1,4 +1,7 @@
 gitpush.sh
 *.pyc
+*.swp
+*.egg
+*.egg-info
 __pycache__
 db.sqlite*
