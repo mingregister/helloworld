@@ -23,4 +23,5 @@ urlpatterns = [
     # path('<int:page>', views.BlogList.as_view(), name='blog-index'), # it can not be write as '/'
     path('', views.BlogList.as_view(), name='blog-index'), # it can not be write as '/'
     path('post/', views.PostView.as_view(), name='blog-post'), 
+    path('comment/', views.CommentView.as_view(), name='blog-comment'), 
 ]

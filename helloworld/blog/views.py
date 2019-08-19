@@ -1,11 +1,13 @@
 # -*- coding:utf-8 -*-
 
-from django.shortcuts import render, redirect, reverse,  get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 
 from django.views.generic import View
 from django.views.generic import TemplateView
 from django.views.generic import ListView
+from django.views.generic import CreateView
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -15,7 +17,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Blog
-from .forms import BlogForm
+from .models import Comments
+from .forms import BlogForm, CommentForm
 
 # Create your views here.
 
@@ -37,18 +40,28 @@ class BlogList(ListView):
     # queryset = Blog.objects.all()
     context_object_name = 'blogs'
     template_name = 'blog/index.html'
-    paginate_by = 5
+    paginate_by = 3
+    # extra_context = None
     # page_kwarg = 'page'
-
-    # def get_context_data(self, **kwargs):
-    #     kwargs['board'] = self.board
-    #     return super().get_context_data(**kwargs)
 
     def get_queryset(self):
         # self.blog = get_object_or_404(Blog, pk=self.kwargs.get('pk'))
         # queryset = self.blog.objects.order_by('-modified_time').annotate(replies=Count('posts') - 1)
         queryset = Blog.objects.order_by('-modified_time')
         return queryset
+
+    # def get_context_data(self, **kwargs):
+    #     kwargs['board'] = self.board
+    #     return super().get_context_data(**kwargs)
+
+    # def get_context_object_name(self, object_list):
+    #     """Get the name of the item to be used in the context."""
+    #     if self.context_object_name:
+    #         return self.context_object_name
+    #     elif hasattr(object_list, 'model'):
+    #         return '%s_list' % object_list.model._meta.model_name
+    #     else:
+    #         return None
 
 
 decorators = [login_required]   
@@ -65,9 +78,17 @@ class PostView(SuccessMessageMixin, View):
         form = BlogForm(request.POST)
         if form.is_valid():
             publisher = form.save()
-            return redirect(reverse('blog-index',kwargs={}))
+            return redirect(reverse('blog-index', kwargs={}))
             # return redirect("/blog")
             # return redirect("/publisher/{pk}/detail".format(pk=publisher.pk))
         else:
             return HttpResponse('form is illeagle')
 
+
+decorators = [login_required]   
+@method_decorator(decorators, name='dispatch')
+class CommentView(CreateView):
+    model = Comments
+    form_class = CommentForm
+    success_url = reverse_lazy('blog-index')
+    template_name = 'blog/comment.html'

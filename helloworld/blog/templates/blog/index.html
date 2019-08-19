@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load blog_filtercomment %}
 
 {% block title %}
 blog
@@ -11,11 +12,29 @@ blog
     <li><a href="/blog/post">Go Post Your Blog</a></li>
     </ul>
   {% for blog in blogs %}
+    <div>
     <!-- {% if messages %} -->
     <!-- {{ messages }} -->
     <!-- {% endif %} -->
     {{ blog.title }} <br>
     {{ blog.body }}
+
+      <div class="mt-3">
+        <a href="{% url 'blog-comment' %}"
+           class="btn btn-primary btn-sm"
+           role="button">Comment</a>
+      </div>
+
+      {% if blog|filtercomments %}
+      <div>
+         <h4>Comment:</h4>
+         {% for comment in blog.blog_comment.all %}
+            <p> -- {{ comment }}</p>
+         {%endfor%}
+      </div>
+      {% endif %}
+
+     </div>
   <br>----------------------------------<br>
   {% endfor %}
   </form>
