@@ -15,7 +15,8 @@ class Blog(models.Model):
 
 
     def __str__(self):
-        return ": ".join([self.blogger, self.title])
+        # return ": ".join([self.blogger, self.title])
+        return self.title
 
     class Meta:
         db_table = 'blog'
