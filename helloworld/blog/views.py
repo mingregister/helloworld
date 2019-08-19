@@ -71,7 +71,8 @@ class PostView(SuccessMessageMixin, View):
     # success_url = reverse_lazy('blog:author-list') # FormMixin
 
     def get(self, request):
-        form = BlogForm()
+        userid = request.user.id
+        form = BlogForm(initial={'blogger': userid}, userid=userid)
         return render(request, 'blog/post_blog.html', {'form': form})
 
     def post(self, request):

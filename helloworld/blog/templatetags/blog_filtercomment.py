@@ -11,7 +11,7 @@ register = template.Library()
 @register.filter
 def filtercomments(bound_field):
     if isinstance(bound_field, Blog):
-        if len(bound_field.blog_comment.all())>0:
+        if bound_field.blog_comment.all()[0:1]:
             return True
         # return False
     return False
