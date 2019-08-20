@@ -93,6 +93,7 @@ class CommentView(CreateView):
     form_class = CommentForm
     success_url = reverse_lazy('blog-index')
     template_name = 'blog/comment.html'
+    # initial = {'belong_to_blog': blogid}
 
     # # def get(self, request, blogid, *args, **kwargs):
     # def get(self, request, *args, **kwargs):
@@ -106,3 +107,9 @@ class CommentView(CreateView):
         # 都是通过限制对应的queryset来达到目的。
         form.fields['belong_to_blog'].queryset = Blog.objects.filter(id=blogid)
         return form 
+   
+    def get_initial(self):
+        blogid = self.kwargs['blogid']
+        initial = {'belong_to_blog': blogid}
+        return initial
+  
