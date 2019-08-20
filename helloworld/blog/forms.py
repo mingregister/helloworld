@@ -20,20 +20,24 @@ class BlogForm(ModelForm):
         #     userid = kwargs.pop('userid')
         # except: 
         #     pass
+
         userid = kwargs.get('userid', None)
         if userid is not None:
             # 如果‘userid’不为None，说明userid已经存在了，把userid给pop出来.
             _x = kwargs.pop('userid')
+
         super(BlogForm, self).__init__(*args, **kwargs)
+
+        if userid is not None:
+            self.fields['blogger'].queryset = User.objects.filter(id=userid)
         # try:
         #     self.fields['blogger'].queryset = User.objects.filter(id=userid)
         # except: 
         #     pass
-        if userid is not None:
-            self.fields['blogger'].queryset = User.objects.filter(id=userid)
     
 
 class CommentForm(ModelForm):
     class Meta:
         model = Comments
         fields = '__all__'
+

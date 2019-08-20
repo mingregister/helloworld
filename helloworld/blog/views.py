@@ -22,6 +22,7 @@ from .forms import BlogForm, CommentForm
 
 # Create your views here.
 
+# # it is equal to BlogList(ListView)
 # class IndexView(View):
 #     
 #     def get(self, request):
@@ -29,7 +30,6 @@ from .forms import BlogForm, CommentForm
 #         context = {'blogs': blogs}
 #         return render(request, 'blog/index.html', context)
 
-# # it is equal to IndexView
 
 def redirect_blog(request):
     return redirect('/blog/1')
@@ -93,3 +93,16 @@ class CommentView(CreateView):
     form_class = CommentForm
     success_url = reverse_lazy('blog-index')
     template_name = 'blog/comment.html'
+
+    # # def get(self, request, blogid, *args, **kwargs):
+    # def get(self, request, *args, **kwargs):
+    #     blogid = self.kwargs['blogid']
+    #     return super(CommentView, self).get(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        blogid = self.kwargs['blogid']
+        form = super(CommentView, self).get_form(form_class)
+        # 限制'belong_to_blog'的可选项,和BlogForm的__init__函数的实现原理相同，
+        # 都是通过限制对应的queryset来达到目的。
+        form.fields['belong_to_blog'].queryset = Blog.objects.filter(id=blogid)
+        return form 

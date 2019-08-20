@@ -13,6 +13,7 @@ class BlogAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'blogger':
             kwargs['initial'] = request.user.id
+        # # 限制可选项
         # if db_field.name == 'blogger':
         #     kwargs['queryset'] = User.objects.filter(id=request.user.id)
         return super(BlogAdmin, self).formfield_for_foreignkey(
