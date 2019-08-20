@@ -41,7 +41,7 @@ class BlogList(ListView):
     # queryset = Blog.objects.all()
     context_object_name = 'blogs'
     template_name = 'blog/index.html'
-    paginate_by = 3
+    paginate_by = 5
     # extra_context = None
     # page_kwarg = 'page'
 

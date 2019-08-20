@@ -1,0 +1,131 @@
+<li id="index">
+    <a href="">
+        <i class="fa fa-dashboard" style="width: 14px"></i> <span class="nav-label">#</span>
+        <span class="label label-info pull-right"></span>
+    </a>
+</li>
+<li id="users">
+    <a href="#">
+        <i class="fa fa-group" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level active">
+        <li id="user"><a href="#">#</a></li>
+        <li id="user-group"><a href="#">#</a></li>
+    </ul>
+</li>
+<li id="assets">
+    <a>
+        <i class="fa fa-inbox" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+        <li id="asset"><a href="#">#</a></li>
+        <li id="domain"><a href="#">#</a></li>
+        <li id="admin-user"><a href="#">#</a></li>
+        <li id="system-user"><a href="#">#</a></li>
+        <li id="label"><a href="#">#</a></li>
+        <li id="cmd-filter"><a href="#">#</a></li>
+    </ul>
+</li>
+{% if LICENSE_VALID %}
+<li id="applications">
+    <a>
+        <i class="fa fa-th" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+        <li id="remote-app"><a href="#">#</a></li>
+    </ul>
+</li>
+{% endif %}
+<li id="perms">
+    <a href="#"><i class="fa fa-edit" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level">
+        <li id="asset-permission">
+            <a href="#">#</a>
+        </li>
+        {% if LICENSE_VALID %}
+        <li id="remote-app-permission">
+            <a href="#">#</a>
+        </li>
+        {% endif %}
+    </ul>
+</li>
+<li id="terminal">
+    <a>
+        <i class="fa fa-rocket" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+        <li id="session-online"><a href="#">#</a></li>
+        <li id="session-offline"><a href="#">#</a></li>
+        <li id="command"><a href="#">#</a></li>
+        <li>
+            <a href="#" target="_blank">
+            <span class="nav-label">#</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" target="_blank">
+            <span class="nav-label">#</span>
+            </a>
+        </li>
+        {% if request.user.is_superuser %}
+        <li id="terminal"><a href="#">#</a></li>
+        {% endif %}
+    </ul>
+</li>
+<li id="ops">
+    <a>
+        <i class="fa fa-coffee" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+        <li id="task"><a href="#">#</a></li>
+        <li id="command-execution"><a href="#">#</a></li>
+    </ul>
+</li>
+<li id="audits">
+    <a>
+        <i class="fa fa-history" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+        <li id="login-log"><a href="#">#</a></li>
+        <li id="ftp-log"><a href="#">#</a></li>
+        <li id="operate-log"><a href="#">#</a></li>
+        <li id="password-change-log"><a href="#">#</a></li>
+        <li id="command-execution-log"><a href="#">#</a></li>
+    </ul>
+</li>
+{% if XPACK_PLUGINS %}
+<li id="xpack">
+    <a>
+        <i class="fa fa-sitemap" style="width: 14px"></i> <span class="nav-label">#</span><span class="fa arrow"></span>
+    </a>
+    <ul class="nav nav-second-level">
+        {% for plugin in XPACK_PLUGINS %}
+            {% ifequal plugin.name 'cloud'%}
+                <li id="#">
+                    <a href="#"><span class="nav-label">#</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-third-level">
+                        <li id="account"><a href="#">#</a></li>
+                        <li id="sync-instance-task"><a href="#">#</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li id="#"><a href="#">#</a></li>
+            {% endifequal %}
+        {% endfor %}
+    </ul>
+</li>
+{% endif %}
+{% if request.user.is_superuser %}
+<li id="settings">
+    <a href="#">
+        <i class="fa fa-gears"></i> <span class="nav-label">#</span><span class="label label-info pull-right"></span>
+    </a>
+</li>
+{% endif %}
+
+<script>
+$(document).ready(function () {
+    var current_org = '#';
+    console.log(current_org);
+})
+</script>
