@@ -13,24 +13,25 @@ class BlogForm(ModelForm):
         labels = {                     # 之前form的中'widget'之类的属性，现在写在这里。
             'blogger':'blog owner'
         }
-    def __init__(self, *args, **kwargs):
-        try:
-            userid = kwargs.pop('userid')
-        except: 
-            pass
-        super(BlogForm, self).__init__(*args, **kwargs)
-        try:
-            self.fields['blogger'].queryset = User.objects.filter(id=userid)
-        except: 
-            pass
-    
-    # def limit_queryset_userid(self):
-    #     try:
-    #         self.userid = kwargs.pop('userid')
-    #     except: 
-    #         pass
-        
 
+    # def __init__(self, *args, userid=None, **kwargs):
+    def __init__(self, *args, **kwargs):
+        # try:
+        #     userid = kwargs.pop('userid')
+        # except: 
+        #     pass
+        userid = kwargs.get('userid', None)
+        if userid is not None:
+            # 如果‘userid’不为None，说明userid已经存在了，把userid给pop出来.
+            _x = kwargs.pop('userid')
+        super(BlogForm, self).__init__(*args, **kwargs)
+        # try:
+        #     self.fields['blogger'].queryset = User.objects.filter(id=userid)
+        # except: 
+        #     pass
+        if userid is not None:
+            self.fields['blogger'].queryset = User.objects.filter(id=userid)
+    
 
 class CommentForm(ModelForm):
     class Meta:

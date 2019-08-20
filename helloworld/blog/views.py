@@ -72,7 +72,7 @@ class PostView(SuccessMessageMixin, View):
 
     def get(self, request):
         userid = request.user.id
-        form = BlogForm(initial={'blogger': userid}, userid=userid)
+        form = BlogForm(initial={'blogger': userid},userid=userid)
         return render(request, 'blog/post_blog.html', {'form': form})
 
     def post(self, request):
