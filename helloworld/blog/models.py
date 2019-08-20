@@ -11,7 +11,6 @@ class Blog(models.Model):
     create_time = models.DateTimeField(auto_now=False, auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     body = models.TextField()
-    # comnents = models.ForeignKey(Comments, on_delete=models.CASCADE, related_name='blog_comment')
 
     def __str__(self):
         # return ": ".join([self.blogger, self.title])
@@ -27,7 +26,7 @@ class Comments(models.Model):
     content = models.TextField()
     comment_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     belong_to_blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_comment', null=True)
-    # comment_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    comment_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commenter')
 
     def __str__(self):
         return self.content

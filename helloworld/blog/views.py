@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.views.generic import CreateView
 
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -102,14 +103,18 @@ class CommentView(CreateView):
 
     def get_form(self, form_class=None):
         blogid = self.kwargs['blogid']
+        commenterid = self.request.user.id
+
         form = super(CommentView, self).get_form(form_class)
         # 限制'belong_to_blog'的可选项,和BlogForm的__init__函数的实现原理相同，
         # 都是通过限制对应的queryset来达到目的。
         form.fields['belong_to_blog'].queryset = Blog.objects.filter(id=blogid)
+        form.fields['comment_by'].queryset = User.objects.filter(id=commenterid)
         return form 
    
     def get_initial(self):
         blogid = self.kwargs['blogid']
-        initial = {'belong_to_blog': blogid}
+        commenterid = self.request.user.id
+        initial = {'belong_to_blog': blogid, 'comment_by': commenterid}
         return initial
   
