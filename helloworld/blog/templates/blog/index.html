@@ -7,6 +7,13 @@ blog
 
 {% block content %}
 <div class="content">
+
+  <form method="get" action="{% url 'blog-search' %}">
+    {% csrf_token %}
+    <input type="search" placeholder="搜索" required name="search">
+    <button type="submit">搜索</button>
+  </form>
+
   <form method="get">
     <ul>
     <li><a href="/blog/post">Go Post Your Blog</a></li>

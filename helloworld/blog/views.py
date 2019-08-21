@@ -16,9 +16,9 @@ from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 
-from .models import Blog
-from .models import Comments
+from .models import Blog, Comments
 from .forms import BlogForm, CommentForm
 
 # Create your views here.
@@ -51,9 +51,12 @@ class BlogList(ListView):
         queryset = Blog.objects.order_by('-modified_time')
         return queryset
 
-    # def get_context_data(self, **kwargs):
-    #     kwargs['board'] = self.board
-    #     return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        # 现在还用不上curpath这个参数。
+        curpath = self.request.path
+        context = super(BlogList, self).get_context_data(**kwargs)
+        context['curpath'] = curpath
+        return context
 
     # def get_context_object_name(self, object_list):
     #     """Get the name of the item to be used in the context."""
@@ -118,3 +121,24 @@ class CommentView(CreateView):
         initial = {'belong_to_blog': blogid, 'comment_by': commenterid}
         return initial
   
+class SearchView(ListView):
+    model = Blog
+    # queryset = Blog.objects.all()
+    context_object_name = 'blogs'
+    template_name = 'blog/index.html'
+    # # todo: 搜索结果的分布还不行.
+    # paginate_by = 5
+   
+    def get_queryset(self):
+        conditions = self.request.GET['search']
+        queryset = Blog.objects.filter(
+            Q(title__icontains=conditions) | Q(body__icontains=conditions)
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        # curpara = self.request.GET # it's a dict.
+        curpath = self.request.path
+        context = super(SearchView, self).get_context_data(**kwargs)
+        context['curpath'] = curpath
+        return context
