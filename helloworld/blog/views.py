@@ -142,3 +142,4 @@ class SearchView(ListView):
         context = super(SearchView, self).get_context_data(**kwargs)
         context['curpath'] = curpath
         return context
+

@@ -82,4 +82,5 @@ urlpatterns += [
     path('admin/', admin.site.urls),
     path('demo/', include('demo.urls')),
     path('blog/', include('blog.urls')),
+    # path('return', views.returnPreviousPage.as_view(), name='return'),
 ]
