@@ -1,6 +1,9 @@
+# -*- coding:utf-8 -*- 
+
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accounts.models import User
 from django.core import mail
 from django.shortcuts import reverse
 from django.urls import resolve
@@ -85,7 +88,9 @@ class PasswordResetDoneTests(TestCase):
         view = resolve('/reset/done/')
         self.assertEquals(view.func.view_class, auth_views.PasswordResetDoneView
 
+
 class PasswordResetConfirmTests(TestCase):
+
     def setUp(self):
         user = User.objects.create_user(username='john', email='john@doe.com', password='123abcdef')
 

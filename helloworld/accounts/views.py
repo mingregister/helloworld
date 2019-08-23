@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accounts.models import User
 
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm

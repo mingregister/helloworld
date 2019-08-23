@@ -22,6 +22,7 @@ from accounts import views as accounts_views
 
 
 urlpatterns = [
+    # path('user/<uuid:pk>/', views.UserDetailView.as_view(), name='user-detail'),
     # accounts url
     path('signup/', accounts_views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),

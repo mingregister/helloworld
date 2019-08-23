@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*- 
 
 from django.forms import ModelForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accounts.models import User
 
 from .models import Blog, Comments
 

@@ -64,10 +64,10 @@ class User(RoleMixin, AbstractUser):
 
     is_first_login = models.BooleanField(default=True)
 
-    date_expired = models.DateTimeField(
-        default=date_expired_default, blank=True, null=True,
-        db_index=True, verbose_name=_('Date expired')
-    )
+    # date_expired = models.DateTimeField(
+    #     default=date_expired_default, blank=True, null=True,
+    #     db_index=True, verbose_name=_('Date expired')
+    # )
 
     created_by = models.CharField(
         max_length=30, default='', verbose_name=_('Created by')

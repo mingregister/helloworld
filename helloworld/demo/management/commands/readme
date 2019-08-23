@@ -1,0 +1,6 @@
+# 自定义django命令，需要定义在app里面
+#
+# # https://simpleisbetterthancomplex.com/tutorial/2018/08/27/how-to-create-custom-django-management-commands.html
+
+Usage:
+    e.g: python manage.py create_users 2
