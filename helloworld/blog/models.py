@@ -32,6 +32,16 @@ class Comments(models.Model):
     def __str__(self):
         return self.content
 
+    # SAVE METHOD
+    def save(self, *args, **kwargs):
+        # do_something()
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        # do_something_else()
+
+    # # ABSOLUTE URL METHOD
+    # def get_absolute_url(self):
+    #     return reverse('blog-index', kwargs={'pk': self.id})
+
     class Meta:
         db_table = 'blog_comments'
         ordering = ['-comment_at']
