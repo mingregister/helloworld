@@ -3,10 +3,11 @@
 from django.forms import ModelForm
 # from django.contrib.auth.models import User
 from accounts.models import User
+from django.db.models import Q
 
 from .models import Blog, Comments, Follow
+# # 不能再从views中导入了，会导致交叉引用问题.
 # from .views import FollowView
-# from .views import myView 
 
 class BlogForm(ModelForm):
     class Meta:
@@ -68,12 +69,24 @@ class FollowForm(ModelForm):
         return self.is_bound and not self.errors and not self.is_follow()
 
     def is_follow(self):
-        user = self.fields['user']
-        print('#################')
-        print(type(self.fields))
-        print('###################')
-        print(self.fields)
-        # return False
-        return FollowView.is_follow()
+        # user = self.fields['user'].queryset.filter(username='zmhuang')
+        # # 这里现在只能返回一个用户，因为views.FollowView.get_form()限制了queryset的值
+        # user = self.fields['user'].queryset.all()
+
+        # 从FollowView.get_form()中获取到此属性
+        current_user = self.current_user
+
+        the_users_id_i_have_follow = Follow.objects.filter(user_id=current_user.id)
+
+        the_user_id_i_will_follow = None
+
+        # isFollow = Follow.objects.filter(user_id=current_user.id).get(id=the_user_id_i_will_follow)
+
+        if the_user_id_i_will_follow in the_users_id_i_have_follow:
+        # if isFollow is not None:
+            # 你已经关注过这个用户了,不需要再关注了。
+            return True
+        return False
+
 
 

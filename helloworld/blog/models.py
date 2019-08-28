@@ -66,5 +66,5 @@ class Follow(models.Model):
         # do_something_else()
     
     def __str__(self):
-        return "follow:{},fan:{}".format(self.follow,self.fan)
+        return "follow:{},current_user:{}".format(self.follow, self.user)
 
