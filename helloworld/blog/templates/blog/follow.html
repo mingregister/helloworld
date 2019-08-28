@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+folow
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+{% if errors %}
+    {{errors.error_messages }}
+{% endif %}
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+</div>
+{% endblock %}

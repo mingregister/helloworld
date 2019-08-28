@@ -19,8 +19,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 
-from .models import Blog, Comments
-from .forms import BlogForm, CommentForm
+from .models import Blog, Comments, Follow
+from .forms import BlogForm, CommentForm, FollowForm
 
 # Create your views here.
 
@@ -106,6 +106,7 @@ class CommentView(CreateView):
     #     return super(CommentView, self).get(request, *args, **kwargs)
 
     def get_form(self, form_class=None):
+		# blogid是在url中捕获的。
         blogid = self.kwargs['blogid']
         commenterid = self.request.user.id
 
@@ -144,3 +145,45 @@ class SearchView(ListView):
         context['curpath'] = curpath
         return context
 
+class FollowView(CreateView):
+    model = Follow
+    form_class = FollowForm 
+    success_url = reverse_lazy('blog-index')
+    template_name = 'blog/follow.html'
+    # initial = {'belong_to_blog': blogid}
+
+    def get_form(self, form_class=None):
+        username = self.request.user.username
+
+        form = super().get_form(form_class)
+        form.fields['user'].queryset = User.objects.filter(username=username)
+        return form 
+
+    def get_initial(self):
+        userid = self.request.user.id
+        initial = {'user': userid}
+        return initial
+
+    @classmethod
+    def is_follow(cls):
+        userid = self.request.user.id
+        the_users_id_i_have_follow = Follow.object.filter(follow_id=userid)
+        print(the_users_id_i_have_follow)
+        if self.request.method == 'POST':
+            the_user_id_to_will_follow = self.request['user']
+            print(the_user_id_to_will_follow)
+
+        if the_user_id_to_will_follow in the_users_id_i_have_follow:
+            # 你已经关注过这个用户了,不需要再关注了。
+            return True
+        return False
+    
+    # def get(self):
+    #     pass
+
+    # def post(self):
+    #     pass 
+
+
+class myView(View):
+    pass

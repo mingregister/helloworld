@@ -7,3 +7,4 @@ gitpush.sh
 __pycache__
 db.sqlite*
 Dockerfile.bak
+venv/

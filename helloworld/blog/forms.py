@@ -4,7 +4,9 @@ from django.forms import ModelForm
 # from django.contrib.auth.models import User
 from accounts.models import User
 
-from .models import Blog, Comments
+from .models import Blog, Comments, Follow
+# from .views import FollowView
+# from .views import myView 
 
 class BlogForm(ModelForm):
     class Meta:
@@ -41,4 +43,37 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comments
         fields = '__all__'
+
+class FollowForm(ModelForm):
+
+    class Meta:
+        model = Follow
+        # # 这个fields在某种程度上会决定self.fields有什么内容
+        # # 在这里，user对应的是django.forms.models.ModelChoiceField，所以它也有queryset属性
+        # # https://docs.djangoproject.com/en/2.2/ref/forms/fields/#modelchoicefield
+        # fields = ['user']
+        fields = '__all__'
+
+    # # just as a example
+    # # https://github.com/jumpserver/jumpserver/blob/master/apps/assets/forms/asset.py
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     # 重写其他字段为不再required
+    #     for name, field in self.fields.items():
+    #         if name != 'assets':
+    #             field.required = False
+
+    def is_valid(self):
+        """Return True if the form has no errors, or False otherwise."""
+        return self.is_bound and not self.errors and not self.is_follow()
+
+    def is_follow(self):
+        user = self.fields['user']
+        print('#################')
+        print(type(self.fields))
+        print('###################')
+        print(self.fields)
+        # return False
+        return FollowView.is_follow()
+
 
