@@ -135,6 +135,8 @@ class CommentView(CreateView):
         return initial
 
   
+decorators = [login_required]   
+@method_decorator(decorators, name='dispatch')
 class SearchView(ListView):
     model = Blog
     # queryset = Blog.objects.all()
@@ -158,6 +160,8 @@ class SearchView(ListView):
         return context
 
 
+decorators = [login_required]   
+@method_decorator(decorators, name='dispatch')
 class FollowView(CreateView):
     model = Follow
     form_class = FollowForm 
