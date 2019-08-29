@@ -58,6 +58,10 @@ class Follow(models.Model):
 	# 查询用户有那些粉丝时: select user_id where follow_id='被查询用户id';
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_user")
 
+    user_follow_friend = models.BooleanField(default=False)
+    friend_follow_user = models.BooleanField(default=False)
+    communication_times = models.IntegerField(default=0,null=True)
+
     # SAVE METHOD
     def save(self, *args, **kwargs):
         print('i rewrite the save function to print this: before save follow')
@@ -66,5 +70,13 @@ class Follow(models.Model):
         # do_something_else()
     
     def __str__(self):
-        return "follow:{},current_user:{}".format(self.follow, self.user)
+        # return "follow:{},current_user:{}".format(self.follow, self.user)
+        # return self.user.username + self.follow.username + communication_times
+        # return self.user.username + self.follow.username
+        return ': '.join([self.user.username, self.follow.username])
+
+    @staticmethod
+    def get_follow_friends(user):
+        return Follow.objects.filter(user=user).filter(user_follow_friend=True)
+
 

@@ -122,6 +122,7 @@ class CommentView(CreateView):
         commenterid = self.request.user.id
         initial = {'belong_to_blog': blogid, 'comment_by': commenterid}
         return initial
+
   
 class SearchView(ListView):
     model = Blog
@@ -145,6 +146,7 @@ class SearchView(ListView):
         context['curpath'] = curpath
         return context
 
+
 class FollowView(CreateView):
     model = Follow
     form_class = FollowForm 
@@ -159,12 +161,18 @@ class FollowView(CreateView):
         form.fields['user'].queryset = User.objects.filter(id=current_user.id)
         # 为form增加一个current_user属性，把当前用户传递到forms.py中
         form.current_user = current_user
+
+        if self.request.method == 'POST':
+            # form.other_user: uuid, string
+            form.other_user = self.request.POST['follow']
         return form 
 
     def get_initial(self):
         userid = self.request.user.id
         initial = {'user': userid}
         return initial
+
+
 
     # # 没有用了，本来想将这个方法传给forms.FollowForm.is_follow()使用的
     # # 但是现在forms中无法导入views中的类。

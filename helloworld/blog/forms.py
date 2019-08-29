@@ -9,6 +9,7 @@ from .models import Blog, Comments, Follow
 # # 不能再从views中导入了，会导致交叉引用问题.
 # from .views import FollowView
 
+
 class BlogForm(ModelForm):
     class Meta:
         model = Blog
@@ -45,6 +46,7 @@ class CommentForm(ModelForm):
         model = Comments
         fields = '__all__'
 
+
 class FollowForm(ModelForm):
 
     class Meta:
@@ -55,14 +57,14 @@ class FollowForm(ModelForm):
         # fields = ['user']
         fields = '__all__'
 
-    # # just as a example
-    # # https://github.com/jumpserver/jumpserver/blob/master/apps/assets/forms/asset.py
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     # 重写其他字段为不再required
-    #     for name, field in self.fields.items():
-    #         if name != 'assets':
-    #             field.required = False
+    # just as a example
+    # https://github.com/jumpserver/jumpserver/blob/master/apps/assets/forms/asset.py
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 重写communication_times字段为不再required
+        for name, field in self.fields.items():
+            if name == 'communication_times':
+                field.required = False
 
     def is_valid(self):
         """Return True if the form has no errors, or False otherwise."""
@@ -75,18 +77,13 @@ class FollowForm(ModelForm):
 
         # 从FollowView.get_form()中获取到此属性
         current_user = self.current_user
+        other_user = self.other_user
 
-        the_users_id_i_have_follow = Follow.objects.filter(user_id=current_user.id)
-
-        the_user_id_i_will_follow = None
-
-        # isFollow = Follow.objects.filter(user_id=current_user.id).get(id=the_user_id_i_will_follow)
-
-        if the_user_id_i_will_follow in the_users_id_i_have_follow:
-        # if isFollow is not None:
-            # 你已经关注过这个用户了,不需要再关注了。
+        have_i_follow_this_guy = Follow.objects.filter(follow_id=other_user,user_id=current_user)
+        if len(have_i_follow_this_guy) > 0:
+            # toDo: 把这个错误返回到页面.
+            # toDo: 听说把这个is_follow的逻辑放到views比较好???
+            print('# 你已经关注过这个用户了,不需要再关注了。')
             return True
         return False
-
-
 
