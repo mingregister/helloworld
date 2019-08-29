@@ -17,7 +17,7 @@ from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q
+from django.db.models import Q,Subquery
 
 from ..models import Blog, Comments, Follow
 from ..forms import BlogForm, CommentForm, FollowForm
@@ -49,7 +49,18 @@ class BlogList(ListView):
     def get_queryset(self):
         # self.blog = get_object_or_404(Blog, pk=self.kwargs.get('pk'))
         # queryset = self.blog.objects.order_by('-modified_time').annotate(replies=Count('posts') - 1)
-        queryset = Blog.objects.order_by('-modified_time')
+        # queryset = Blog.objects.order_by('-modified_time')
+
+        # the_users_i_have_follow = Follow.objects.filter(user_id=self.request.user.id)
+        # the_uesrs_i_have_follow_uuid = [ user.follow_id for user in the_users_i_have_follow ]
+
+        # https://docs.djangoproject.com/en/2.2/ref/models/querysets/#values-list
+        # https://stackoverflow.com/questions/8556297/how-to-subquery-in-queryset-in-django
+        # flat=True只能在只有一个值的情况下使用，会返回list而不是tuple.
+        the_users_i_have_follow = Follow.objects.filter(user_id=self.request.user.id).values_list('follow_id', flat=True)
+        # 仅显示已关注的人或者自已发的微博
+        queryset = Blog.objects.filter(Q(post_by__in=the_users_i_have_follow)|Q(post_by=self.request.user.id)).order_by('-modified_time')
+
         return queryset
 
     def get_context_data(self, **kwargs):
