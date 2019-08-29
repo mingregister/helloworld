@@ -68,22 +68,25 @@ class FollowForm(ModelForm):
 
     def is_valid(self):
         """Return True if the form has no errors, or False otherwise."""
-        return self.is_bound and not self.errors and not self.is_follow()
+        # return self.is_bound and not self.errors and not self.is_follow()
+        # 把验证逻辑改到post里面了.
+        return self.is_bound and not self.errors
 
-    def is_follow(self):
-        # user = self.fields['user'].queryset.filter(username='zmhuang')
-        # # 这里现在只能返回一个用户，因为views.FollowView.get_form()限制了queryset的值
-        # user = self.fields['user'].queryset.all()
+    # # deperated
+    # def is_follow(self):
+    #     # user = self.fields['user'].queryset.filter(username='zmhuang')
+    #     # # 这里现在只能返回一个用户，因为views.FollowView.get_form()限制了queryset的值
+    #     # user = self.fields['user'].queryset.all()
 
-        # 从FollowView.get_form()中获取到此属性
-        current_user = self.current_user
-        other_user = self.other_user
+    #     # 从FollowView.get_form()中获取到此属性
+    #     current_user = self.current_user
+    #     other_user = self.other_user
 
-        have_i_follow_this_guy = Follow.objects.filter(follow_id=other_user,user_id=current_user)
-        if len(have_i_follow_this_guy) > 0:
-            # toDo: 把这个错误返回到页面.
-            # toDo: 听说把这个is_follow的逻辑放到views比较好???
-            print('# 你已经关注过这个用户了,不需要再关注了。')
-            return True
-        return False
+    #     have_i_follow_this_guy = Follow.objects.filter(follow_id=other_user,user_id=current_user)
+    #     if len(have_i_follow_this_guy) > 0:
+    #         # toDo: 把这个错误返回到页面.
+    #         # toDo: 听说把这个is_follow的逻辑放到views比较好???
+    #         print('# 你已经关注过这个用户了,不需要再关注了。')
+    #         return True
+    #     return False
 

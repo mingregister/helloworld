@@ -174,12 +174,12 @@ class FollowView(CreateView):
 
         form = super().get_form(form_class)
         form.fields['user'].queryset = User.objects.filter(id=current_user.id)
-        # 为form增加一个current_user属性，把当前用户传递到forms.py中
-        form.current_user = current_user
+        # # 为form增加一个current_user属性，把当前用户传递到forms.py中
+        # form.current_user = current_user
 
-        if self.request.method == 'POST':
-            # form.other_user: uuid, string
-            form.other_user = self.request.POST['follow']
+        # if self.request.method == 'POST':
+        #     # form.other_user: uuid, string
+        #     form.other_user = self.request.POST['follow']
         return form 
 
     def get_initial(self):
@@ -187,19 +187,25 @@ class FollowView(CreateView):
         initial = {'user': userid}
         return initial
 
+    def post(self, request, *args, **kwargs):
+        self.object = None
+
+        form = self.get_form()
+        if form.is_valid() and not self.is_follow():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def is_follow(self):
+
+        current_user = self.request.user
+        other_user = self.request.POST['follow']
+
+        have_i_follow_this_guy = Follow.objects.filter(follow_id=other_user,user_id=current_user)
+        if len(have_i_follow_this_guy) > 0:
+            # toDo: 把这个错误返回到页面.
+            print('# 你已经关注过这个用户了,不需要再关注了。')
+            return True
+        return False
 
 
-    # # 没有用了，本来想将这个方法传给forms.FollowForm.is_follow()使用的
-    # # 但是现在forms中无法导入views中的类。
-    # @classmethod
-    # def is_follow(cls):
-    #     userid = self.request.user.id
-    #     the_users_id_i_have_follow = Follow.object.filter(follow_id=userid)
-    #     print(the_users_id_i_have_follow)
-    #     if self.request.method == 'POST':
-    #         the_user_id_to_will_follow = self.request['user']
-    #         print(the_user_id_to_will_follow)
-    #     if the_user_id_to_will_follow in the_users_id_i_have_follow:
-    #         # 你已经关注过这个用户了,不需要再关注了。
-    #         return True
-    #     return False

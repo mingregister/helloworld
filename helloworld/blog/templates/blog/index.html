@@ -14,9 +14,8 @@ blog
     <button type="submit">搜索</button>
   </form>
 
-  <form method="post" action="{% url 'blog-follow' %}">
+  <form method="get" action="{% url 'blog-follow' %}">
     {% csrf_token %}
-    <input type="search" placeholder="输入关注人username" required name="follow">
     <button type="submit">Follow</button>
   </form>
 
