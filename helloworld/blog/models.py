@@ -12,6 +12,7 @@ class Blog(models.Model):
     create_time = models.DateTimeField(auto_now=False, auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     body = models.TextField()
+    post_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_by')
 
     def __str__(self):
         # return ": ".join([self.blogger, self.title])
