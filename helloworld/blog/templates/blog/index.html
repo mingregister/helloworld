@@ -30,7 +30,7 @@ blog
     <!-- {% endif %} -->
     <h5>title:</h5> {{ blog.title }} <br>
     <h5>body:</h5> {{ blog.body }}
-    <h5>发布人:</h5> {{ blog.post_by }}
+    <h5>发布人:</h5> {{ blog.blogger }}
 
       <div class="mt-3">
         <a href="{% url 'blog-comment' blog.id %}"

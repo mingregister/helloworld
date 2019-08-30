@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*- 
 
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 # from django.contrib.auth.models import User
 from accounts.models import User
 from django.db.models import Q
@@ -15,8 +15,11 @@ class BlogForm(ModelForm):
         model = Blog
         fields = '__all__'
         # exclude = ['blogger']
-        labels = {                     # 之前form的中'widget'之类的属性，现在写在这里。
+        labels = {
             'blogger':'blog owner'
+        }
+        widgets = {
+            'blogger': widgets.HiddenInput(),
         }
 
     # def __init__(self, *args, userid=None, **kwargs):
@@ -45,6 +48,10 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comments
         fields = '__all__'
+        widgets = {
+            'comment_by': widgets.HiddenInput(),
+            'belong_to_blog': widgets.HiddenInput(),
+        }
 
 
 class FollowForm(ModelForm):

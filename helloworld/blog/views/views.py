@@ -59,7 +59,9 @@ class BlogList(ListView):
         # flat=True只能在只有一个值的情况下使用，会返回list而不是tuple.
         the_users_i_have_follow = Follow.objects.filter(user_id=self.request.user.id).values_list('follow_id', flat=True)
         # 仅显示已关注的人或者自已发的微博
-        queryset = Blog.objects.filter(Q(post_by__in=the_users_i_have_follow)|Q(post_by=self.request.user.id)).order_by('-modified_time')
+        queryset = Blog.objects.filter(
+          Q(blogger__in=the_users_i_have_follow)|Q(blogger=self.request.user.id)
+        ).order_by('-modified_time')
 
         return queryset
 
