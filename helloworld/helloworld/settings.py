@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+
+    'rest_framework',
+    'snippets.apps.SnippetsConfig',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +169,16 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # In production, we would use a TRUE Email Backend insted of this. 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# django-rest-framework分页
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     # 全局配置默认权限???
+    #     'rest_framework.permissions.IsAuthenticated',
+    #     # 'rest_framework.authentication.BasicAuthentication',
+    #     # 'rest_framework.authentication.TokenAuthentication',
+    #     # 'rest_framework.authentication.SessionAuthentication',
+    # ],
+}

@@ -84,4 +84,6 @@ urlpatterns += [
     path('demo/', include('demo.urls')),
     path('blog/', include('blog.urls')),
     # path('return', views.returnPreviousPage.as_view(), name='return'),
+    # # django-rest-framework
+    path('snippets/', include('snippets.urls')),
 ]
