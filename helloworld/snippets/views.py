@@ -1,36 +1,19 @@
-from django.shortcuts import render
+# -*- coding:utf-8 -*- 
 
-from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
-from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from django.http import HttpResponse, JsonResponse, Http404
 
-
-from rest_framework import status
-from rest_framework.decorators import api_view
-
-
-from django.http import Http404
 from rest_framework.views import APIView
-from rest_framework.response import Response
-
-
-from rest_framework import mixins
-from rest_framework import generics
-
-from snippets.serializers import UserSerializer
-from accounts.models import User
-
-from rest_framework import permissions
-from snippets.permissions import IsOwnerOrReadOnly
-
 from rest_framework.reverse import reverse
-from rest_framework import renderers
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view, action
+from rest_framework import status, mixins, generics, renderers, viewsets, permissions
 
-from rest_framework import viewsets
-from rest_framework.decorators import action
-
+from accounts.models import User
+from snippets.models import Snippet
+from snippets.permissions import IsOwnerOrReadOnly
+from snippets.serializers import SnippetSerializer, UserSerializer
 
 # # 1.api function view
 # # Note that because we want to be able to POST to this view from clients that won't have a CSRF token we need to mark the view as csrf_exempt
