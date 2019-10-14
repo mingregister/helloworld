@@ -1,0 +1,25 @@
+---
+# 这个就是jenkins-slave的执行的yaml文件
+metadata:
+  labels:
+    some-label: some-label-value
+    # 不清楚这个label有什么用??? 是和上面label: 'mypodx'呼应???
+    mypodx: jnlp
+spec:
+  volumes:
+  - hostPath:
+      path: /data/mvn_cache
+      type: ""
+    name: mvn-cache
+  containers:
+  # 这个名字必须是jnlp,但是你可以有多个container
+  - name: jnlp
+    alwaysPullImage: true
+    volumeMounts:
+    - mountPath: /root/repository
+      name: mvn-cache
+    # image: registry.cn-shanghai.aliyuncs.com/cpaas/build_dockerfile:v5
+    image: jenkins/jnlp-slave:latest
+    env:
+    - name: CONTAINER_ENV_VAR
+      value: jnlp

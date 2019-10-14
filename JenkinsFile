@@ -1,0 +1,41 @@
+// Example
+// 这个就是所谓的JenkinsFile，通常是和代码一起放在代码仓库中的?！
+pipeline {
+  agent {
+    kubernetes {
+      // 这个lable是用于选择k8s的node的. 貌似不是哦
+      // kubectl lable nodes node1 mypodx=node1
+      label 'mypodx'
+      // 这个名字要与页面上创建kubernetes cloud名称一致
+      cloud 'zmhuang_k8s_test'
+      // 这个mpod.yaml对应下面的文件, 也是和源码放在一起的.
+      yamlFile 'mpod.yaml'
+    }
+  }
+
+  stages {
+    stage('git clone') {
+        // 下面${url}就是之前填的url
+        // credentialsId在jenkins中的'凭据'中获取
+        steps {
+                git credentialsId: '58bade2d-3165-4613-842f-727fc46ea850', url: '${url}'
+                # git credentialsId: '${credentialsId}', url: '${url}'
+        }
+    }
+  
+    // 表示暂停，等确认后再往下继续
+    stage('hold') {
+        agent none
+        steps {
+                input "Does the staging environment look ok?"
+         }
+    }
+
+    stage('Run containers shell') {
+      // /root/bin/git.sh这个脚本是放在mpod.yaml文件的镜像里面的：registry.cn-shanghai.aliyuncs.com/cpaas/build_dockerfile:v5
+      steps {
+        sh '/root/bin/git.sh ${url}'
+      }
+    }
+  }
+}
