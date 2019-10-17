@@ -7,7 +7,7 @@ metadata:
     # 这个标签与jenkins里面的*标签*一毛钱关系都没有，纯粹只是k8s的pod标签.
     mypodx: jnlp
 spec:
-  nodeSelector: node01
+  nodeName: node01
   volumes:
   - hostPath:
       path: /data/mvn_cache
