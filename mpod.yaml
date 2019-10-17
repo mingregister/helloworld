@@ -40,6 +40,7 @@ spec:
   - name: dockerd
     image: centos:7.6.1810
     alwaysPullImage: false
+    command:
     - "/bin/sh"
     - "-c"
     - "python -m SimpleHTTPServer 8080"
