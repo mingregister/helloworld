@@ -20,6 +20,7 @@ pipeline {
         steps {
                 git credentialsId: '${credentialsId}', url: '${url}'
                 // git credentialsId: '58bade2d-3165-4613-842f-727fc46ea850', url: '${url}'
+                sh 'git checkout jenkins'
         }
     }
 
@@ -36,7 +37,6 @@ pipeline {
         steps {
                 container('dockerd') {
                      sh 'cd /home/jenkins/workspace/k8s-test'
-                     sh 'git checkout jenkins'
                      sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
                      sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 '
                 }
