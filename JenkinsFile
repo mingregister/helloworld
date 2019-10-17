@@ -26,7 +26,7 @@ pipeline {
     stage('docker build') {
         steps {
                 container('dockerd') {
-                     sh 'cd /tmp && echo abcd > test.txt'
+                     sh 'echo abcd > /tmp/test.txt'
                 }
         }
     }
