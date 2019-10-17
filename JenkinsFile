@@ -3,8 +3,8 @@
 pipeline {
   agent {
     kubernetes {
-      // 这个lable是用于选择k8s的node的. 貌似不是哦
-      // kubectl lable nodes node1 mypodx=node1
+      // 这个是指jenkins里面的标签!!! 就像java,java8这些!!!  怎么又要遵循k8s的label语法???!!!!  
+      // 这时，k8s就会创建一个类似: mypodxa-dtt5p-nl0fz 的pod，并将这个pod变成jenkins的node节点(slave执行机), 并且这个执行机会自动带有标签: mypodxa
       label 'mypodxa'
       // 这个名字要与页面上创建kubernetes cloud名称一致
       cloud 'zmhuang_k8s_test'

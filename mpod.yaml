@@ -4,6 +4,7 @@ metadata:
   labels:
     some-label: some-label-value
     # 不清楚这个label有什么用??? 是和上面label: 'mypodx'呼应???
+    # 这个标签与jenkins里面的*标签*一毛钱关系都没有，纯粹只是k8s的pod标签.
     mypodx: jnlp
 spec:
   volumes:
@@ -11,15 +12,40 @@ spec:
       path: /data/mvn_cache
       type: ""
     name: mvn-cache
+  - hostPath:
+      path: /var/run/docker.sock
+      type: ""
+    name: docker-sock
+  - hostPath:
+      path: /usr/local/bin
+      type: ""
+    name: docker-bin
+  - emptyDir: {}
+    name: workspace
   containers:
   # 这个名字必须是jnlp,但是你可以有多个container
   - name: jnlp
-    alwaysPullImage: true
+    # alwaysPullImage: true
+    alwaysPullImage: false
     volumeMounts:
     - mountPath: /root/repository
       name: mvn-cache
+    - mountPath: /home/jenkins/workspace
+      name: workspace
     # image: registry.cn-shanghai.aliyuncs.com/cpaas/build_dockerfile:v5
     image: jenkins/jnlp-slave:latest
     env:
     - name: CONTAINER_ENV_VAR
       value: jnlp
+  - name: dockerd
+    image: centos:7.6.1810
+    alwaysPullImage: false
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+    - mountPath: /opt/docker/bin
+      name: docker-bin
+    - mountPath: /root/workspace
+      name: workspace
+    - mountPath: /root/repository
+      name: mvn-cache
