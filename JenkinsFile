@@ -26,7 +26,9 @@ pipeline {
     stage('docker build') {
         steps {
                 container('dockerd') {
-                     sh 'echo abcd > /tmp/test.txt'
+                     sh 'cd /home/jenkins/workspace/k8s-test'
+                     sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuang/pythoncicd:v0.1 . '
+                     sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuang/pythoncicd:v0.1 '
                 }
         }
     }
