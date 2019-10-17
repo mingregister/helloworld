@@ -1,4 +1,5 @@
-FROM registry.cn-shenzhen.aliyuncs.com/zmhuangpub/python:3.7.3-sqlite3-mysql
+FROM alpine:3.8
+# FROM registry.cn-shenzhen.aliyuncs.com/zmhuangpub/python:3.7.3-sqlite3-mysql
 
 #####
 COPY requirement.txt /requirement.txt
