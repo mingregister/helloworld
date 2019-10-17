@@ -21,12 +21,16 @@ pipeline {
                 git credentialsId: '${credentialsId}', url: '${url}'
                 // git credentialsId: '58bade2d-3165-4613-842f-727fc46ea850', url: '${url}'
         }
+    }
+
+    stage('docker build') {
         steps {
                 container('dockerd') {
                      sh 'cd /root && echo abcd > test.txt'
                 }
         }
     }
+  
 
   
     // 表示暂停，等确认后再往下继续
