@@ -24,9 +24,11 @@ pipeline {
     }
 
     stage('docker build') {
+      steps {
       container('dockerd') {
         sh 'cd /root && echo abcd > test.txt'
     }}
+    }
   
     // 表示暂停，等确认后再往下继续
     stage('hold') {
