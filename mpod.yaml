@@ -56,7 +56,8 @@ spec:
       name: docker-sock
     - mountPath: /opt/docker/bin
       name: docker-bin
-    - mountPath: /root/workspace
+    # 如果有挂workspace, 一定要挂在/home/jenkins/workspaces(与jnlpp容器相同)?
+    - mountPath: /home/jenkins/workspace
       name: workspace
     - mountPath: /root/repository
       name: mvn-cache
