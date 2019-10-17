@@ -40,10 +40,16 @@ spec:
   - name: dockerd
     image: centos:7.6.1810
     alwaysPullImage: false
+    # 这个k8s-test看下能不能传变量进来
+    workingDir: /root/workspace/k8s-test
+    # workingDir: /root/workspace
     command:
-    - "/bin/sh"
-    - "-c"
-    - "python -m SimpleHTTPServer 8080"
+    - cat
+    tty: true
+    # command:
+    # - "/bin/sh"
+    # - "-c"
+    # - "python -m SimpleHTTPServer 8080"
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-sock
