@@ -31,6 +31,7 @@ pipeline {
          }
     }
 
+    // github 上面的Dockerfile内容已经更新了，但是jenkins-slave容器里面的Dockerfile总是不更新, 缓存??我用了宿主机的docker???选定了一个node???
     stage('docker build') {
         steps {
                 container('dockerd') {
