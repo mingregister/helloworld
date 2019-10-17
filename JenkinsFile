@@ -36,6 +36,7 @@ pipeline {
         steps {
                 container('dockerd') {
                      sh 'cd /home/jenkins/workspace/k8s-test'
+                     sh 'git checkout jenkins'
                      sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
                      sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 '
                 }
