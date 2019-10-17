@@ -19,7 +19,7 @@ pipeline {
         // credentialsId在jenkins中的'凭据'中获取
         steps {
                 git credentialsId: '58bade2d-3165-4613-842f-727fc46ea850', url: '${url}'
-                # git credentialsId: '${credentialsId}', url: '${url}'
+                // # git credentialsId: '${credentialsId}', url: '${url}'
         }
     }
   
