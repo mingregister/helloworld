@@ -7,7 +7,6 @@ pipeline {
       // kubectl lable nodes node1 mypodx=node1
       // # label 'mypodx'
       // 这个名字要与页面上创建kubernetes cloud名称一致
-      name 'jonk8s'
       cloud 'zmhuang_k8s_test'
       // 这个mpod.yaml对应下面的文件, 也是和源码放在一起的.
       yamlFile 'mpod.yaml'
