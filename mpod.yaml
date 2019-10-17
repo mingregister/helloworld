@@ -37,15 +37,16 @@ spec:
     env:
     - name: CONTAINER_ENV_VAR
       value: jnlp
-  - name: dockerd
-    image: centos:7.6.1810
-    alwaysPullImage: false
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-    - mountPath: /opt/docker/bin
-      name: docker-bin
-    - mountPath: /root/workspace
-      name: workspace
-    - mountPath: /root/repository
-      name: mvn-cache
+  # - name: dockerd
+  #   image: centos:7.6.1810
+  #   alwaysPullImage: false
+  #   command: ["/bin/bash"]
+  #   volumeMounts:
+  #   - mountPath: /var/run/docker.sock
+  #     name: docker-sock
+  #   - mountPath: /opt/docker/bin
+  #     name: docker-bin
+  #   - mountPath: /root/workspace
+  #     name: workspace
+  #   - mountPath: /root/repository
+  #     name: mvn-cache
