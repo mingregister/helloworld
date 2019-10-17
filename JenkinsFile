@@ -5,7 +5,7 @@ pipeline {
     kubernetes {
       // 这个lable是用于选择k8s的node的. 貌似不是哦
       // kubectl lable nodes node1 mypodx=node1
-      label 'mypodx'
+      label 'mypodx java'
       // 这个名字要与页面上创建kubernetes cloud名称一致
       cloud 'zmhuang_k8s_test'
       // 这个mpod.yaml对应下面的文件, 也是和源码放在一起的.
