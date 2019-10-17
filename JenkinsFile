@@ -23,6 +23,14 @@ pipeline {
         }
     }
 
+
+    stage('holdx') {
+        agent none
+        steps {
+                input "Does the staging environment look ok?"
+         }
+    }
+
     stage('docker build') {
         steps {
                 container('dockerd') {
