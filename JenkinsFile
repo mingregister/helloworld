@@ -30,6 +30,7 @@ pipeline {
     stage('docker build') {
         steps {
                 container('dockerd') {
+                     sh 'export /opt/dockerk/bin'
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
                               sh 'cd /home/jenkins/workspace/k8s-test'
                               sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
