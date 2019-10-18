@@ -74,13 +74,13 @@ spec:
       name: workspace
     - mountPath: /root/repository
       name: mvn-cache
-  # - name: helm
-  #   image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/helm:v2.14.3
-  #   alwaysPullImage: false
-  #   command:
-  #   - cat
-  #   tty: true
-  #   # volumeMounts:
-  #   # - name: helm
-  #   #   mountPath: /root/.helm
+  - name: helm
+    image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/helm:v2.14.3
+    alwaysPullImage: false
+    command:
+    - cat
+    tty: true
+    # volumeMounts:
+    # - name: helm
+    #   mountPath: /root/.helm
 
