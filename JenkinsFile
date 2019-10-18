@@ -34,8 +34,8 @@ pipeline {
                      // withDockerRegistry不能指定docker二进制文件的位置，现在通过在镜像里面加上环境变量实现
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
                               sh 'cd /home/jenkins/workspace/k8s-test'
-                              sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
-                              sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 '
+                              sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.2 . '
+                              sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.2 '
                      }
                 }
         }
