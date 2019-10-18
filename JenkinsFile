@@ -30,7 +30,7 @@ pipeline {
     stage('docker build') {
         steps {
                 container('dockerd') {
-                     withDockerRegistry([credentialsId: "${dockerregistry}", url: 'registry.cn-shenzhen.aliyuncs.com']){
+                     withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
                               sh 'cd /home/jenkins/workspace/k8s-test'
                               sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
                               sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 '
