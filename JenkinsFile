@@ -26,21 +26,15 @@ pipeline {
         }
     }
 
-
-    stage('holdx') {
-        agent none
-        steps {
-                input "Does the staging environment look ok?"
-         }
-    }
-
     // github 上面的Dockerfile内容已经更新了，但是jenkins-slave容器里面的Dockerfile总是不更新, 缓存??我用了宿主机的docker???选定了一个node???
     stage('docker build') {
         steps {
                 container('dockerd') {
-                     sh 'cd /home/jenkins/workspace/k8s-test'
-                     sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
-                     sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 '
+                     withDockerRegistry([credentialsId: "${Creds}", url: 'https://index.docker.io/v1/']){
+                              sh 'cd /home/jenkins/workspace/k8s-test'
+                              sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 . '
+                              sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.1 '
+                     }
                 }
         }
     }
