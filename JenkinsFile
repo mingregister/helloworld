@@ -13,6 +13,15 @@ pipeline {
     }
   }
 
+  // // 暂时不需要用到，留在这里作为一个示例
+  // environment{
+  //    // 设置 Ansible 不检查 HOST_KEY 
+  //   ANSIBLE_HOST_KEY_CHECKING = false
+  // }
+  // triggers {
+  //    pollSCM('H/1 * * * *')
+  // }
+
   stages {
     stage('git clone') {
         // 下面${url}就是之前填的url
@@ -30,7 +39,7 @@ pipeline {
     stage('docker build') {
         steps {
                 container('dockerd') {
-                     // withDockerRegistry不能指定docker二进制文件的位置，现在通过在镜像里面加上环境变量实现
+                     // withDockerRegistry不能显式指定docker二进制文件的位置，现在通过在镜像里面加上环境变量实现
                      // 这个Credentials用*Username with password"就可以了.
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
                               sh 'cd /home/jenkins/workspace/k8s-test'
