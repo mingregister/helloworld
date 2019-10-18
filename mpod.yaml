@@ -23,10 +23,10 @@ spec:
     name: docker-bin
   - emptyDir: {}
     name: workspace
-  # 这里你得先创建好pvc
-  - name: helm
-    persistentVolumeClaim:
-      claimName: helm
+  # # 这里你得先创建好pvc
+  # - name: helm
+  #   persistentVolumeClaim:
+  #     claimName: helm
   containers:
   # 这个名字必须是jnlp,但是你可以有多个container
   # 以下环境变量会自动注入默认的 JNLP 容器，来保障它能自动连接到 Jenkins 主服务器：
@@ -74,12 +74,12 @@ spec:
       name: workspace
     - mountPath: /root/repository
       name: mvn-cache
-  - name: helm
-    image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/helm:v2.14.3
-    alwaysPullImage: false
-    command:
-    - cat
-    tty: true
-    # volumeMounts:
-    # - name: helm
-    #   mountPath: /root/.helm
+  # - name: helm
+  #   image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/helm:v2.14.3
+  #   alwaysPullImage: false
+  #   command:
+  #   - cat
+  #   tty: true
+  #   # volumeMounts:
+  #   # - name: helm
+  #   #   mountPath: /root/.helm
