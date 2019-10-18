@@ -7,7 +7,7 @@ metadata:
     # 这个标签与jenkins里面的*标签*一毛钱关系都没有，纯粹只是k8s的pod标签.
     mypodx: jnlp
 spec:
-  nodeName: node02
+  nodeName: node07
   volumes:
   - hostPath:
       path: /data/mvn_cache
@@ -23,17 +23,8 @@ spec:
     name: docker-bin
   - emptyDir: {}
     name: workspace
-  # # 这里你得先创建好pvc
-  # - name: helm
-  #   persistentVolumeClaim:
-  #     claimName: helm
   containers:
   # 这个名字必须是jnlp,但是你可以有多个container
-  # 以下环境变量会自动注入默认的 JNLP 容器，来保障它能自动连接到 Jenkins 主服务器：
-  #    JENKINS_URL: Jenkins 网页界面网址
-  #    JENKINS_JNLP_URL: Jenkins 特定 slave 中 jnlp 的 url
-  #    JENKINS_SECRET: 身份验证的密钥
-  #    JENKINS_NAME: Jenkins 代理的名称
   - name: jnlp
     # alwaysPullImage: true
     alwaysPullImage: false
@@ -74,12 +65,3 @@ spec:
       name: workspace
     - mountPath: /root/repository
       name: mvn-cache
-  # - name: helm
-  #   image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/helm:v2.14.3
-  #   alwaysPullImage: false
-  #   command:
-  #   - cat
-  #   tty: true
-  #   # volumeMounts:
-  #   # - name: helm
-  #   #   mountPath: /root/.helm
