@@ -46,7 +46,7 @@ spec:
     # workingDir: /root/workspace/k8s-test  # k8s-test不能直接挂进来，会没有权限
     env:
       - name: PATH
-        value: $(PATH):/opt/docker/bin
+        value: $$(PATH):/opt/docker/bin
         # value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/docker/bin
     command:
     - cat
