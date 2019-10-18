@@ -39,7 +39,7 @@ spec:
     - name: CONTAINER_ENV_VAR
       value: jnlp
   - name: dockerd
-    image: centos:7.6.1810
+    image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/python:3.7.3-sqlite3-mysql
     alwaysPullImage: false
     # 这个k8s-test看下能不能传变量进来
     # workingDir: /root/workspace
