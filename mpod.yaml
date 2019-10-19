@@ -24,8 +24,8 @@ spec:
       path: /usr/local/bin
       type: ""
     name: docker-bin
-  - emptyDir: {}
-    name: workspace
+  # - emptyDir: {}
+  #   name: workspace
   # 这里你得先创建好pvc
   - name: helm
     persistentVolumeClaim:
@@ -43,8 +43,8 @@ spec:
     volumeMounts:
     - mountPath: /root/repository
       name: mvn-cache
-    - mountPath: /home/jenkins/workspace
-      name: workspace
+    # - mountPath: /home/jenkins/workspace
+    #   name: workspace
     # image: registry.cn-shanghai.aliyuncs.com/cpaas/build_dockerfile:v5
     image: jenkins/jnlp-slave:latest
     env:
@@ -72,9 +72,9 @@ spec:
       name: docker-sock
     - mountPath: /opt/docker/bin
       name: docker-bin
-    # 如果有挂workspace, 一定要挂在/home/jenkins/workspaces(与jnlpp容器相同)?
-    - mountPath: /home/jenkins/workspace
-      name: workspace
+    # # 如果有挂workspace, 一定要挂在/home/jenkins/workspaces(与jnlpp容器相同)?
+    # - mountPath: /home/jenkins/workspace
+    #   name: workspace
     - mountPath: /root/repository
       name: mvn-cache
   - name: helm
@@ -86,6 +86,6 @@ spec:
     volumeMounts:
     - name: helm
       mountPath: /root/.helm
-    - name: workspace
-      mountPath: /home/jenkins/workspace
+    # - name: workspace
+    #   mountPath: /home/jenkins/workspace
 
