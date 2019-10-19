@@ -8,7 +8,8 @@ metadata:
     mypodx: jnlp
 spec:
   nodeName: node02
-  serviceAccountName: tiller
+  # 你不能绑定不同名称空间的serviceAccount啊!!!
+  serviceAccountName: cicd-helm
   volumes:
   - hostPath:
       path: /data/mvn_cache
