@@ -10,8 +10,8 @@ spec:
   nodeName: node02
   # 你不能绑定不同名称空间的serviceAccount啊!!!
   # helm的只是一个客户端，helm是通过与tiller通信，从而再获得k8s的集群信息的。而目前的tiller是部署在kube-system的, 但是如果这里的serviceAccount不是在kube-system，那就是说，helm将无法与tiller通信。-----这里的cicd-helm正是部署在default名称空间的，所以它确实无法与tiller通信.
-  # serviceAccountName: cicd-helm
-  serviceAccount: cicd-helm
+  serviceAccountName: cicd-helm
+  # serviceAccount: cicd-helm
   volumes:
   - hostPath:
       path: /data/mvn_cache
