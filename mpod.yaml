@@ -86,4 +86,6 @@ spec:
     volumeMounts:
     - name: helm
       mountPath: /root/.helm
+    - name: workspace
+      mountPath: /home/jenkins/workspace
 
