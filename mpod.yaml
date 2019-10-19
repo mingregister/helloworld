@@ -8,7 +8,7 @@ metadata:
     mypodx: jnlp
 spec:
   nodeName: node02
-  # serviceAccountName: cicd-helm
+  serviceAccountName: cicd-helm
   volumes:
   - hostPath:
       path: /data/mvn_cache
