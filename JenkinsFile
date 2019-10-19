@@ -51,6 +51,14 @@ pipeline {
     }
   
 
+    stage('helm deploy') {
+        steps {
+                container('helm') {
+                      sh 'helm ls'
+                }
+        }
+    }
+
   
     // 表示暂停，等确认后再往下继续
     stage('hold') {
