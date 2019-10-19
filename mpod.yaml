@@ -80,7 +80,7 @@ spec:
     command:
     - cat
     tty: true
-    # volumeMounts:
-    # - name: helm
-    #   mountPath: /root/.helm
+    volumeMounts:
+    - name: helm
+      mountPath: /root/.helm
 
