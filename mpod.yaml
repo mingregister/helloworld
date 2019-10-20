@@ -45,7 +45,7 @@ spec:
       name: mvn-cache
     - mountPath: /home/jenkins/workspace
       name: workspace
-    # image: registry.cn-shanghai.aliyuncs.com/cpaas/build_dockerfile:v5
+    # 可以自建镜像，原始Dockerfile是在：https://github.com/jenkinsci/docker-jnlp-slave/blob/master/Dockerfile
     image: jenkins/jnlp-slave:latest
     env:
     - name: CONTAINER_ENV_VAR

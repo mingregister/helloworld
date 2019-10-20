@@ -1,0 +1,95 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  namespace: mysql
+data:
+  MYSQL_ROOT_PASSWORD: 'admin123'  
+  MYSQL_DATABASE: 'django'  
+  MYSQL_USER: 'django'  
+  MYSQL_PASSWORD: 'django'   
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    os: debian
+  namespace: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      os: debian
+  template: 
+    metadata:
+      name: mysql
+      namespace: mysql
+      labels:
+        app: mysql
+        os: debian
+    spec:
+      hostname: mysql
+      containers:
+      - name: mysql
+        image: mysql:5.7.28
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: mysql
+        # 状态检查
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+          # 时间未定
+          initialDelaySeconds: 70
+          periodSeconds: 5
+          failureThreshold: 3
+        ports:
+        - name: mysql
+          containerPort: 3306
+          protocol: TCP
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mysql
+    os: debian
+    # 此labels已经deperated
+    kubernetes.io/cluster-service: "true"
+  name: mysql
+  namespace: mysql
+spec:
+  selector:
+    app: mysql
+    os: debian
+  ports:
+  - name: mysql
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  # type: NodePort
+
+# ---
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ingress-mysql
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+# spec:
+#   rules:
+#   # 先在windows上加hosts 集群nodeip=mysql.k8s.com
+#   - host: mysql.k8s.com
+#     # 用http代理不了吧.
+#     http:
+#       paths:
+#       - path: /
+#         backend:
+#           serviceName: mysql
+#           servicePort: 3306

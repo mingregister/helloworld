@@ -1,0 +1,111 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: django
+  namespace: default
+data:
+  DJANGO_MYSQL_NAME: 'django'  
+  DJANGO_MYSQL_HOST: 'mysql.mysql.svc.cluster.local'  
+  DJANGO_MYSQL_PORT: '3306'  
+  DJANGO_MYSQL_USER: 'django'  
+  DJANGO_MYSQL_PASS: 'django'  
+  LANG: 'en_US.UTF-8' 
+  LC_ALL: 'en_US.UTF-8'  
+  DJANGO_DEBUG: 'True'  
+  SECRET_KEY: 'aujf(ioz91_&118rg0bqi6_s96c5e5y1h_r8%9tg3p(l#=xhpv'  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+    language: python
+    os: centos
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+      language: python
+      os: centos
+  template:
+    metadata:
+      name: django
+      namespace: default
+      labels:
+        app: django
+        language: python
+        os: centos
+    spec:
+      hostname: django
+      containers:
+      - name: django
+        # image: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.2
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: django
+        command:
+        - "/usr/bin/python"
+        args:
+        - /app/manage.py 
+        - runserver 0.0.0.0:8080
+        # 状态检查
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /
+          # 时间未定
+          initialDelaySeconds: 70
+          periodSeconds: 5
+          failureThreshold: 3
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: django
+    language: python
+    os: centos
+    # 此label已经deperated
+    kubernetes.io/cluster-service: "true"
+  name: django
+  namespace: default
+spec:
+  selector:
+    app: django
+    language: python
+    os: centos
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80
+    name: http
+  # type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-django
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  # 先在windows上加hosts 集群nodeip=django.k8s.com
+  - host: django.k8s.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: django
+          servicePort: 80
+
