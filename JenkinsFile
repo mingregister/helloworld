@@ -13,11 +13,13 @@ pipeline {
     }
   }
 
-  // // 暂时不需要用到，留在这里作为一个示例
-  // environment{
-  //    // 设置 Ansible 不检查 HOST_KEY 
-  //   ANSIBLE_HOST_KEY_CHECKING = false
-  // }
+  environment{
+    // 设置 Ansible 不检查 HOST_KEY 
+    // ANSIBLE_HOST_KEY_CHECKING = false
+    IMAGETAG = v0.5
+    IMAGENAME = pythoncicd
+    REPOSITORYPATH = registry.cn-shenzhen.aliyuncs.com/zmhuangpub
+  }
   // triggers {
   //    pollSCM('H/1 * * * *')
   // }
@@ -44,8 +46,11 @@ pipeline {
                      // 这个Credentials用*Username with password"就可以了.
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
                               sh 'cd /home/jenkins/workspace/k8s-test'
-                              sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 . '
-                              sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 '
+                              sh '/opt/docker/bin/docker build -t ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} . '
+                              sh '/opt/docker/bin/docker push ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} '
+
+                              // sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 . '
+                              // sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 '
                      }
                 }
         }
