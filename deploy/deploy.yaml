@@ -89,9 +89,9 @@ spec:
     language: python
     os: centos
   ports:
-  - port: 8080
+  - port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 8080
     name: http
   # type: NodePort
 ---
