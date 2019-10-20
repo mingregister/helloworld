@@ -44,8 +44,8 @@ pipeline {
                      // 这个Credentials用*Username with password"就可以了.
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
                               sh 'cd /home/jenkins/workspace/k8s-test'
-                              sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.4 . '
-                              sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.4 '
+                              sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 . '
+                              sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 '
                      }
                 }
         }
