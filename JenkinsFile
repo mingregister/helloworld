@@ -14,12 +14,12 @@ pipeline {
   }
 
   environment{
-    // 设置 Ansible 不检查 HOST_KEY 
-    // ANSIBLE_HOST_KEY_CHECKING = false
     IMAGETAG = 'v0.5'
     IMAGENAME = 'pythoncicd'
     REPOSITORYPATH = 'registry.cn-shenzhen.aliyuncs.com/zmhuangpub'
+    BRANCHENAME = 'jenkins'
   }
+
   // triggers {
   //    pollSCM('H/1 * * * *')
   // }
@@ -33,7 +33,7 @@ pipeline {
                 // git credentialsId: '58bade2d-3165-4613-842f-727fc46ea850', url: '${url}'
                 // 虽然我在jenkins里面配置的是*使用jenkins分支*,而实际上，在执行pipeline的过程使用的也是jenkins分支的JenkinsFile，
                 // 但这里拉下来的代码是在master分支的，所以要切换成我想要的分支，坑了好久。
-                sh 'git checkout jenkins'
+                sh 'git checkout ${BRANCHENAME}'
         }
     }
 
@@ -48,9 +48,6 @@ pipeline {
                               sh 'cd /home/jenkins/workspace/k8s-test'
                               sh '/opt/docker/bin/docker build -t ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} . '
                               sh '/opt/docker/bin/docker push ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} '
-
-                              // sh '/opt/docker/bin/docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 . '
-                              // sh '/opt/docker/bin/docker push registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5 '
                      }
                 }
         }
@@ -72,6 +69,7 @@ pipeline {
     stage('hold') {
         agent none
         steps {
+                sh "printenv | sort"
                 input "Does the staging environment look ok?"
          }
     }
