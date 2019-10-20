@@ -5,6 +5,8 @@ COPY requirement.txt /requirement.txt
 RUN pip install -r /requirement.txt
 COPY helloworld /app
 
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 # docker build -t registry.cn-shenzhen.aliyuncs.com/zmhuang/pythoncicd:v1.0 .
 # docker run --rm --entrypoint /bin/bash -it  registry.cn-shenzhen.aliyuncs.com/zmhuang/pythoncicd:v1.0 

@@ -44,16 +44,17 @@ spec:
       containers:
       - name: django
         # image: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.2
+        image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.3
         imagePullPolicy: IfNotPresent
         envFrom:
           - configMapRef:
               name: django
-        command:
-        - "/bin/sh"
-        - "-c"
+        # command:
+        # - "/bin/sh"
+        # - "-c"
+        # - "/usr/bin/python /app/manage.py runserver 0.0.0.0:8080"
+        args:
         - "/usr/bin/python /app/manage.py runserver 0.0.0.0:8080"
-        # args:
         # - /app/manage.py 
         # - runserver
         # -  0.0.0.0:8080
