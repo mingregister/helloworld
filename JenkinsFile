@@ -57,28 +57,23 @@ pipeline {
 
     stage('helm deploy') {
         steps {
-
-
-
+                script {
+                    def workspace = manager.build.getEnvVars()["WORKSPACE"]
+                    envFileName = "env"
+                    myFile = new File(workspace + envFileName)
+                    
+                    // lastLine = myFile.readLines().get(myFile.readLines().size().toInteger() - 1)
+                    lastLine = myFile.readLines()
+                    lastLine.each {
+                         // key, value -> println("${key} = ${value}");
+                         key -> println("${key}");
+                         sh 'sed -i "s|((key))|${key}|g" ${WORKSPACE}/deploy/deploy.yaml'
+                     }
+                }
 
                 // 凡是使用这种切换容器的方式的，都必须把jnlp容器的workspace也挂进来，否则会报 [mv: cannot stat ‘/home/jenkins/workspace/k8s-test@tmp/durable-467812dc/jenkins-result.txt.tmp’: No such file or directory] 等错误
                 container('helm') {
                       sh 'helm ls'
-
-                      script {
-                          def workspace = manager.build.getEnvVars()["WORKSPACE"]
-                          envFileName = "env"
-                          myFile = new File(workspace + envFileName)
-                          
-                          // lastLine = myFile.readLines().get(myFile.readLines().size().toInteger() - 1)
-                          lastLine = myFile.readLines()
-                          lastLine.each {
-                               // key, value -> println("${key} = ${value}");
-                               key -> println("${key}");
-                               sh 'sed -i "s|((key))|${key}|g" ${WORKSPACE}/deploy/deploy.yaml'
-                           }
-                      }
-
                       // // Todo: 加一个脚本，直接替换所有
                       // sh 'sed -i "s|((REPOSITORYPATH))|${REPOSITORYPATH}|g" ${WORKSPACE}/deploy/deploy.yaml'
                       // sh 'sed -i "s|((IMAGENAME))|${IMAGENAME}|g" ${WORKSPACE}/deploy/deploy.yaml'
