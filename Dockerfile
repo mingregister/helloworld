@@ -5,6 +5,7 @@ COPY requirement.txt /requirement.txt
 RUN pip install -r /requirement.txt
 COPY helloworld /app
 
+# docker-entrypoint.sh必须要有可以执行权限
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
