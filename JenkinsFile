@@ -15,9 +15,9 @@ pipeline {
 
   environment{
     // sh "printenv | sort"   // 这条命令可以打印出内置的环境变量
-    IMAGETAG = 'v0.5'
-    IMAGENAME = 'pythoncicd'
-    REPOSITORYPATH = 'registry.cn-shenzhen.aliyuncs.com/zmhuangpub'
+    // IMAGETAG = 'v0.5'
+    // IMAGENAME = 'pythoncicd'
+    // REPOSITORYPATH = 'registry.cn-shenzhen.aliyuncs.com/zmhuangpub'
     BRANCHENAME = 'jenkins'
   }
 
