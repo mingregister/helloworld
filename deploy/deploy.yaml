@@ -50,18 +50,20 @@ spec:
           - configMapRef:
               name: django
         command:
-        - "/usr/bin/python"
-        args:
-        - /app/manage.py 
-        - runserver
-        -  0.0.0.0:8080
+        - "/bin/sh"
+        - "-c"
+        - "/usr/bin/python /app/manage.py runserver 0.0.0.0:8080"
+        # args:
+        # - /app/manage.py 
+        # - runserver
+        # -  0.0.0.0:8080
         # 状态检查
         readinessProbe:
           httpGet:
             port: 8080
             path: /
           # 时间未定
-          initialDelaySeconds: 70
+          initialDelaySeconds: 10
           periodSeconds: 5
           failureThreshold: 3
         ports:
