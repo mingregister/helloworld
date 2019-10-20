@@ -16,9 +16,9 @@ pipeline {
   environment{
     // 设置 Ansible 不检查 HOST_KEY 
     // ANSIBLE_HOST_KEY_CHECKING = false
-    IMAGETAG = v0.5
-    IMAGENAME = pythoncicd
-    REPOSITORYPATH = registry.cn-shenzhen.aliyuncs.com/zmhuangpub
+    IMAGETAG = 'v0.5'
+    IMAGENAME = 'pythoncicd'
+    REPOSITORYPATH = 'registry.cn-shenzhen.aliyuncs.com/zmhuangpub'
   }
   // triggers {
   //    pollSCM('H/1 * * * *')
