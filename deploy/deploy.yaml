@@ -53,7 +53,8 @@ spec:
         - "/usr/bin/python"
         args:
         - /app/manage.py 
-        - runserver 0.0.0.0:8080
+        - runserver
+        -  0.0.0.0:8080
         # 状态检查
         readinessProbe:
           httpGet:
