@@ -54,7 +54,10 @@ spec:
         # - "-c"
         # - "/usr/bin/python /app/manage.py runserver 0.0.0.0:8080"
         args:
-        - "/usr/bin/python /app/manage.py runserver 0.0.0.0:8080"
+        - "/usr/bin/python"
+        - "/app/manage.py"
+        - "runserver"
+        - "0.0.0.0:8080"
         # - /app/manage.py 
         # - runserver
         # -  0.0.0.0:8080
