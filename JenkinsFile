@@ -60,6 +60,7 @@ pipeline {
                 // 凡是使用这种切换容器的方式的，都必须把jnlp容器的workspace也挂进来，否则会报 [mv: cannot stat ‘/home/jenkins/workspace/k8s-test@tmp/durable-467812dc/jenkins-result.txt.tmp’: No such file or directory] 等错误
                 container('helm') {
                       sh 'helm ls'
+                      // Todo: 加一个脚本，直接替换所有
                       sh 'sed -i "s|((REPOSITORYPATH))|${REPOSITORYPATH}|g" ${WORKSPACE}/deploy/deploy.yaml'
                       sh 'sed -i "s|((IMAGENAME))|${IMAGENAME}|g" ${WORKSPACE}/deploy/deploy.yaml'
                       sh 'sed -i "s|((IMAGETAG))|${IMAGETAG}|g" ${WORKSPACE}/deploy/deploy.yaml'
