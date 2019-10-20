@@ -44,7 +44,8 @@ spec:
       containers:
       - name: django
         # image: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5
+        # image: registry.cn-shenzhen.aliyuncs.com/zmhuangpub/pythoncicd:v0.5
+        image: ((REPOSITORYPATH))/((IMAGENAME)):((IMAGETAG))
         imagePullPolicy: IfNotPresent
         envFrom:
           - configMapRef:
