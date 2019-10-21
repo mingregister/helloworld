@@ -86,12 +86,14 @@ pipeline {
                       // sh '${WORKSPACE}/replacevar.sh'
                       // sh '#!/usr/bin/env bash;  ENFFILE=env;  ENVLINE=`cat ${ENFFILE}`;   for i in ${ENVLINE}; do  realenv=${i}   sed -i "s/((${realenv}))/${i}/g" ${WORKSPACE}/deploy/deploy.yaml;  done'
                       script {
-                         def lineCount = 0;
-                         // File file = new File("${WORKSPACE}/env");
-                         File file = new File("/home/jenkins/workspace/k8s-test/env");
-                         file.eachLine{
-                              line -> println("line ${lineCount++}: ${line}");
-                      }
+                      //    def lineCount = 0;
+                      //    // File file = new File("${WORKSPACE}/env");
+                      //    File file = new File("/home/jenkins/workspace/k8s-test/env");
+                      //    file.eachLine{
+                      //         line -> println("line ${lineCount++}: ${line}");
+                      // }
+                      readFile("/home/jenkins/workspace/k8s-test/env").split("\n").each { line ->
+                             echo "$line"
                       }
 
                       sh 'cat ${WORKSPACE}/deploy/deploy.yaml' 
