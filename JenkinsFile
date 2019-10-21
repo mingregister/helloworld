@@ -87,7 +87,6 @@ pipeline {
                       // readFile("/home/jenkins/workspace/k8s-test/env").split("\n").each { line ->
                       readFile("${WORKSPACE}/env").split("\n").each { line ->
                              echo "$line"
-                             echo $line
                              sh 'sed -i "s|((\"$line\"))|\"${line}\"|g" ${WORKSPACE}/deploy/deploy.yaml'
                       }
                       }
