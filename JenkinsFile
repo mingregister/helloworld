@@ -76,14 +76,12 @@ pipeline {
                       sh 'helm ls'
                       // sh '${WORKSPACE}/replacevar.sh'
                       // sh '#!/usr/bin/env bash;  ENFFILE=env;  ENVLINE=`cat ${ENFFILE}`;   for i in ${ENVLINE}; do  realenv=${i}   sed -i "s/((${realenv}))/${i}/g" ${WORKSPACE}/deploy/deploy.yaml;  done'
-                      File file = new File('env')
-                      assert file.name == 'env'
-                      assert ! file.isAbsolute()
-                      assert file.path == 'env'
-                      assert file.parent == null
-                       
-                      //使用系统默认的编码处理文件流  
-                      file.eachLine {println it }  
+
+                      def lineCount = 0;
+                      File file = new File("./test.txt");
+                      file.eachLine{
+                           line -> println("line ${lineCount++}: ${line}");
+                      }
 
                       sh 'cat ${WORKSPACE}/deploy/deploy.yaml' 
                       // // Todo: 加一个脚本，直接替换所有
