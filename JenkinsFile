@@ -55,6 +55,14 @@ pipeline {
     }
   
 
+    stage('hold') {
+        agent none
+        steps {
+                // sh "printenv | sort"
+                input "Does the staging environment look ok?"
+         }
+    }
+
     stage('helm deploy') {
         steps {
                 // script {
