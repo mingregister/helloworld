@@ -56,14 +56,6 @@ pipeline {
     }
   
 
-    stage('holdx') {
-        agent none
-        steps {
-                // sh "printenv | sort"
-                input "Does the staging environment look ok?"
-         }
-    }
-
     stage('helm deploy') {
         steps {
                 // script {
@@ -94,8 +86,9 @@ pipeline {
                       // }
                       // readFile("/home/jenkins/workspace/k8s-test/env").split("\n").each { line ->
                       readFile("${WORKSPACE}/env").split("\n").each { line ->
-                             // echo "$line"
-                             sh 'sed -i "s|(($line))|${line}|g" ${WORKSPACE}/deploy/deploy.yaml'
+                             echo "$line"
+                             echo $line
+                             sh 'sed -i "s|((\"$line\"))|\"${line}\"|g" ${WORKSPACE}/deploy/deploy.yaml'
                       }
                       }
 
