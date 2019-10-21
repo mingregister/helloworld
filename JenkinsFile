@@ -75,6 +75,7 @@ pipeline {
                 container('helm') {
                       sh 'helm ls'
                       sh '${WORKSPACE}/replacevar.sh'
+                      sh 'cat ${WORKSPACE}/deploy/deploy.yaml' 
                       // // Todo: 加一个脚本，直接替换所有
                       // sh 'sed -i "s|((REPOSITORYPATH))|${REPOSITORYPATH}|g" ${WORKSPACE}/deploy/deploy.yaml'
                       // sh 'sed -i "s|((IMAGENAME))|${IMAGENAME}|g" ${WORKSPACE}/deploy/deploy.yaml'
@@ -89,7 +90,7 @@ pipeline {
     stage('hold') {
         agent none
         steps {
-                sh "printenv | sort"
+                // sh "printenv | sort"
                 input "Does the staging environment look ok?"
          }
     }
