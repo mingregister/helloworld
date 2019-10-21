@@ -75,8 +75,7 @@ pipeline {
                 container('helm') {
                       sh 'helm ls'
                       // sh '${WORKSPACE}/replacevar.sh'
-                      sh '
-                          #!/usr/bin/env bash
+                      sh '#!/usr/bin/env bash
 
                           ENFFILE=env
 
