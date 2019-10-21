@@ -78,7 +78,7 @@ pipeline {
                       // sh '#!/usr/bin/env bash;  ENFFILE=env;  ENVLINE=`cat ${ENFFILE}`;   for i in ${ENVLINE}; do  realenv=${i}   sed -i "s/((${realenv}))/${i}/g" ${WORKSPACE}/deploy/deploy.yaml;  done'
                       script {
                          def lineCount = 0;
-                         File file = new File("./env");
+                         File file = new File("${WORKSPACE}/env");
                          file.eachLine{
                               line -> println("line ${lineCount++}: ${line}");
                       }
