@@ -95,6 +95,7 @@ pipeline {
                       readFile("/home/jenkins/workspace/k8s-test/env").split("\n").each { line ->
                              echo "$line"
                       }
+                      }
 
                       sh 'cat ${WORKSPACE}/deploy/deploy.yaml' 
                       // // Todo: 加一个脚本，直接替换所有
