@@ -18,8 +18,7 @@ pipeline {
     // IMAGETAG = 'v0.5'
     // IMAGENAME = 'pythoncicd'
     // REPOSITORYPATH = 'registry.cn-shenzhen.aliyuncs.com/zmhuangpub'
-    // BRANCHENAME = 'jenkins'
-    BRANCHENAME = 'master'
+    BRANCHENAME = 'jenkins'
   }
 
   // triggers {
