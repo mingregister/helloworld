@@ -46,7 +46,7 @@ pipeline {
                 container('dockerd') {
                       // cd 命令是没有用的!!!
                       // sh 'cd ${WORKSPACE}/helloworld'
-                      dir('${WORKSPACE}') {
+                      dir('${WORKSPACE}/helloworld') {
                           // some block
                           sh 'pwd'
                           sh 'python manage.py test'
