@@ -1,5 +1,5 @@
-// Example
-// 这个就是所谓的JenkinsFile，通常是和代码一起放在代码仓库中的?！
+@Library('github.com/triologygmbh/jenkinsfile@ad12c8a9') _
+
 pipeline {
   agent {
     kubernetes {
@@ -11,6 +11,11 @@ pipeline {
       // 这个mpod.yaml对应下面的文件, 也是和源码放在一起的.
       yamlFile 'mpod.yaml'
     }
+  }
+
+  // using the Timestamper plugin we can add timestamps to the console log
+  options {
+    timestamps()
   }
 
   environment{
@@ -118,6 +123,13 @@ pipeline {
 
                       sh 'cat ${WORKSPACE}/deploy/deploy.yaml' 
                       sh 'kubectl apply -f ${WORKSPACE}/deploy/deploy.yaml'
+
+                      // if (env.BRANCH_NAME == "master") {
+                      //     //deployToKubernetes(versionName, 'kubeconfig-prod', getServiceIp('kubeconfig-prod'))
+                      // } else { //if (env.BRANCH_NAME == 'develop') {
+                      //     deployToKubernetes(versionName, 'kubeconfig-oss-deployer', getServiceIp('kubeconfig-oss-deployer'))
+                      // }
+
                  }
         }
     }
