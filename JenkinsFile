@@ -61,7 +61,8 @@ pipeline {
                      //    可以在系统管理-全局工具配置-docker中配置docker二进制文件的位置.
                      // 这个Credentials用*Username with password"就可以了.
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
-                              sh 'cd ${WORKSPACE}'
+                              // sh 'cd ${WORKSPACE}'
+                              sh 'cd /tmp'
                               sh '/opt/docker/bin/docker build -t ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} . '
                               sh '/opt/docker/bin/docker push ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} '
                      }
