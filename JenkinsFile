@@ -45,6 +45,7 @@ pipeline {
         steps {
                 container('dockerd') {
                       sh 'cd ${WORKSPACE}/helloworld'
+                      sh 'ls -al'
                       sh 'python manage.py test'
                       // sh 'sleep 60'
                 }
