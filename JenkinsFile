@@ -61,7 +61,7 @@ pipeline {
                 container('dockerd') {
                       // sh 'cd ${WORKSPACE}/helloworld'
                       // sh 'python manage.py test'
-                      echo 'haha'
+                      sh 'sleep 60'
                 }
         }
     }
