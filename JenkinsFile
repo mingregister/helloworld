@@ -39,6 +39,18 @@ pipeline {
         }
     }
 
+
+
+    stage('unitest') {
+        steps {
+                container('dockerd') {
+                      sh 'cd ${WORKSPACE}/helloworld'
+                      sh 'python manage.py test'
+                      // sh 'sleep 60'
+                }
+        }
+    }
+
     // github 上面的Dockerfile内容已经更新了，但是jenkins-slave容器里面的Dockerfile总是不更新, 缓存??我用了宿主机的docker???选定了一个node???是因为branch不对，需要先切换到jenkins分支
     stage('docker build') {
         steps {
@@ -56,15 +68,6 @@ pipeline {
     }
 
 
-    stage('unitest') {
-        steps {
-                container('dockerd') {
-                      // sh 'cd ${WORKSPACE}/helloworld'
-                      // sh 'python manage.py test'
-                      sh 'sleep 60'
-                }
-        }
-    }
   
 
     stage('helm deploy') {
