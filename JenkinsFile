@@ -44,11 +44,13 @@ pipeline {
     stage('unitest') {
         steps {
                 container('dockerd') {
-                      sh 'cd ${WORKSPACE}/helloworld'
-                      sh 'pwd'
-                      sh 'ls -al'
-                      // sh 'python manage.py test'
-                      // sh 'sleep 60'
+                      // cd 命令是没有用的!!!
+                      // sh 'cd ${WORKSPACE}/helloworld'
+                      dir('${WORKSPACE}') {
+                          // some block
+                          sh 'pwd'
+                          sh 'python manage.py test'
+                      }
                 }
         }
     }
@@ -61,8 +63,7 @@ pipeline {
                      //    可以在系统管理-全局工具配置-docker中配置docker二进制文件的位置.
                      // 这个Credentials用*Username with password"就可以了.
                      withDockerRegistry([credentialsId: "${dockerregistry}", url: 'https://registry.cn-shenzhen.aliyuncs.com']){
-                              // sh 'cd ${WORKSPACE}'
-                              sh 'cd /tmp'
+                              // sh 'cd ${WORKSPACE}'  # cd命令是没有用的，而且它本来就是在${WORKSPACE}目录下
                               sh '/opt/docker/bin/docker build -t ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} . '
                               sh '/opt/docker/bin/docker push ${REPOSITORYPATH}/${IMAGENAME}:${IMAGETAG} '
                      }
