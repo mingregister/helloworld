@@ -60,7 +60,7 @@ pipeline {
         steps {
                 container('dockerd') {
                       sh 'cd ${WORKSPACE}/helloworld'
-                      sh 'python manage test'
+                      sh 'python manage.py test'
                 }
         }
     }
