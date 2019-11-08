@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load blog_filtercomment %}
+
+{% block title %}
+tools
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <ul>
+    <li><a href="{% url 'tools-f1' %}">f1</a></li>
+    <li><a href="{% url 'tools-f2' %}">f2</a></li>
+    <li><a href="{% url 'tools-f3' %}">f3</a></li>
+    </ul>
+</div>
+{% endblock %}

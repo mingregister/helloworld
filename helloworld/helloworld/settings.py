@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'demo.apps.DemoConfig',
     'blog.apps.BlogConfig',
     'accounts.apps.AccountsConfig',
+    'tools.apps.ToolsConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -182,3 +183,7 @@ REST_FRAMEWORK = {
     #     # 'rest_framework.authentication.SessionAuthentication',
     # ],
 }
+
+# 上传文件
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

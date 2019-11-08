@@ -83,7 +83,12 @@ urlpatterns += [
     path('admin/', admin.site.urls),
     path('demo/', include('demo.urls')),
     path('blog/', include('blog.urls')),
+    path('tools/', include('tools.urls')),
     # path('return', views.returnPreviousPage.as_view(), name='return'),
     # # django-rest-framework
     path('snippets/', include('snippets.urls')),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
