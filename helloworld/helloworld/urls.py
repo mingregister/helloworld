@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.contrib.auth import views as auth_views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from . import views
 from accounts import views as accounts_views
 
@@ -83,11 +86,12 @@ urlpatterns += [
     path('admin/', admin.site.urls),
     path('demo/', include('demo.urls')),
     path('blog/', include('blog.urls')),
+    path('photos/', include('photos.urls', namespace='photos')),
     # path('return', views.returnPreviousPage.as_view(), name='return'),
     # # django-rest-framework
     path('snippets/', include('snippets.urls')),
 ]
 
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

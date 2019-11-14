@@ -1,36 +1,38 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html>
 <head>
-  <title> {% block title %} {% endblock %}</title>
-  {% include '_head_css_js.html' %}
-  <style>
-    .header {
-      width: 98%;
-      background: #333;
-      color: #fff;
-      padding: 1%;
-    }
-    .footer {
-      width: 98%;
-      background: rgb(87, 86, 86);
-      color: #fff;
-      padding: 1%;
-    }
-    ul, li {
-      list-style: none
-    }
-    .content {
-      width: 100%;
-      min-height: 200px;
-    }
-  </style>
+    <!-- Comment  -->
+    <meta charset="utf-8">
+    <title> {% block title %}Is this can be override? {% endblock %}</title>
+    {% include '_head_css_js.html' %}
+    {% include '_header.html' %}
+    {% block stylesheet %}{% endblock %}
 </head>
 
 <body>
-  {% include '_header.html' %}
-  {% block content %}
+    <div id="wrapper">
+        {% block body %}
+            {% include '_header_bar.html' %}
+            {% include '_left_side_bar.html' %}
+            <div class="container">
+                <ol class="breadcrumb my-4">
+                    {% block breadcrumb %}
+                    {% endblock %}
+                </ol>
+                {% block content %}
+                {% endblock %}
+                {% block onlyforuploadfilescript %}
+                {% endblock %}
+                {% block onlyforuploadfilejavascript %}
+                {% endblock %}
+            </div>
+        {% endblock body %}
 
-  {% endblock %}
-  {% include '_footer.html' %}
+        {% include '_script.html' %}
+    </div>
 </body>
+
+{% include '_footer_css_js.html' %}
+{% include '_footer.html' %}
 </html>

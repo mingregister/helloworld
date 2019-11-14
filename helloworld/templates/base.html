@@ -22,13 +22,17 @@
                 </ol>
                 {% block content %}
                 {% endblock %}
+                {% block onlyforuploadfilescript %}
+                {% endblock %}
+                {% block onlyforuploadfilejavascript %}
+                {% endblock %}
             </div>
         {% endblock body %}
 
-        {% include '_script.html' %}
+        <!--{% include '_script.html' %}-->
     </div>
 </body>
 
-{% include '_footer_css_js.html' %}
-{% include '_footer.html' %}
+<!--{% include '_footer_css_js.html' %}-->
+<!--{% include '_footer.html' %}-->
 </html>
