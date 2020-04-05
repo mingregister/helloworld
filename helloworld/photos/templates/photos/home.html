@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+<ul>
+<li><a href="{% url 'photos:basic_upload' %}">upload</a></li>
+<li><a href="{% url 'photos:walkattr' %}">walk request attr</a></li>
+</ul>
+</div>
+
+{% endblock %}

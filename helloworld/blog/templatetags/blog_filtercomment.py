@@ -8,6 +8,7 @@ register = template.Library()
 # def field_type(bound_field):
 #     return bound_field.field.widget.__class__.__name__
 
+# https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/
 @register.filter
 def filtercomments(bound_field):
     if isinstance(bound_field, Blog):

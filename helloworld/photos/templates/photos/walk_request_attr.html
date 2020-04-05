@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load walkrequestattr %}
+
+
+<script src="{% static 'photos/js/my-a-post.js' %}"></script>
+
+{% block content %}
+<div class="content">
+  <li> request's type is <h4> {{ request|printtype }} </h4> </h1>
+  {% for requesta in request|walkattrs %}
+  <ul><li>  {{ requesta }} </li></ul>
+  {% endfor %}
+</div>
+<h4>##########</h4>
+<div class="content">
+  <li> self.request's type is <h4> {{ selfrequest|printtype }} </h4> </h1>
+  {% for requesta in selfrequest|walkattrs %}
+  <ul><li>  {{ requesta }} </li></ul>
+  {% endfor %}
+</div>
+
+{% endblock %}
